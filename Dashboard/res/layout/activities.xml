@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    style="@style/paddedLayout"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical" >
+
+    <TextView
+        style="@style/Widget.Text.H1"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/txt_activities" />
+    
+    <Button 
+        android:id="@+id/btn_activities_unteractivity"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:onClick="onButtonClick"
+        android:text="@string/btn_activities_unteractivity"/>
+    
+    <TextView 
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        style="@style/Widget.Text.H2" />
+    
+    <EditText 
+        android:id="@+id/edt_activities_unteractivity_frage"
+        android:inputType="text"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+    
+    <Button 
+        android:id="@+id/btn_activities_unteractivity_mit_antwort"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:onClick="onButtonClick"
+        android:text="@string/btn_activities_unteractivity_mit_antwort"/>
+
+</LinearLayout>

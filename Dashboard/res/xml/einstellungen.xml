@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PreferenceScreen
+  xmlns:android="http://schemas.android.com/apk/res/android">
+  	<PreferenceCategory
+  		android:title="@string/txt_voreinstellungen_allgemein">
+  		<EditTextPreference
+  			android:title="@string/txt_voreinstellungen_benutzer"
+  			android:key="benutzer"
+  			android:defaultValue=""
+  			/>
+  	</PreferenceCategory>
+  	<PreferenceCategory
+  		android:title="@string/txt_voreinstellungen_persoenliches"
+  		>
+  		<ListPreference
+  			android:title="@string/txt_voreinstellungen_lieblingsfarbe"
+  			android:key="lieblingsfarbe"
+  			android:entries="@array/lieblingsfarbe"
+  			android:entryValues="@array/lieblingsfarbwerte"
+  			/>
+  		<ListPreference
+  			android:title="@string/txt_voreinstellungen_stimmung"
+  			android:entries="@array/stimmung"
+  			android:entryValues="@array/stimmung"
+  			android:key="stimmung"
+  			/>
+  	</PreferenceCategory>
+</PreferenceScreen>

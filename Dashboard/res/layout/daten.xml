@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+	xmlns:android="http://schemas.android.com/apk/res/android"
+	android:layout_width="match_parent"
+	android:layout_height="match_parent" 
+	android:orientation="vertical"
+	android:padding="10dip"
+	>
+	<TextView
+		style="@style/Widget.Text.H1"
+		android:layout_width="match_parent"
+		android:layout_height="wrap_content"
+		android:text="@string/txt_daten"
+		/>
+
+	<TextView
+	    android:id="@+id/txt_begruessung"
+	    android:layout_width="wrap_content"
+	    android:layout_height="wrap_content"
+	    android:text="@string/txt_platzhalter"
+		style="@style/Widget.Text.H2" />
+
+	<TextView
+	    android:id="@+id/txt_letzterbesuch"
+	    android:layout_width="wrap_content"
+	    android:layout_height="wrap_content"
+	    android:text="@string/txt_platzhalter" 
+	    android:layout_marginBottom="@dimen/raster2"/>
+
+	<Button
+		android:id="@+id/btn_daten_adapter"
+		android:layout_width="match_parent"
+		android:layout_height="wrap_content"
+		android:text="@string/btn_daten_adapter"
+		android:onClick="onButtonClick"
+		/>
+	
+	<Button
+		android:id="@+id/btn_daten_einstellungen"
+		android:layout_width="match_parent"
+		android:layout_height="wrap_content"
+		android:text="@string/btn_daten_einstellungen"
+		android:onClick="onButtonClick"
+		/>
+	
+	<Button
+		android:id="@+id/btn_daten_dateisystem"
+		android:layout_width="match_parent"
+		android:layout_height="wrap_content"
+		android:text="@string/btn_daten_dateisystem"
+		android:onClick="onButtonClick"
+		/>
+	
+	<Button
+		android:id="@+id/btn_daten_datenbanken"
+		android:layout_width="match_parent"
+		android:layout_height="wrap_content"
+		android:text="@string/btn_daten_datenbanken"
+		android:onClick="onButtonClick"
+		/>
+	
+	<Button
+		android:id="@+id/btn_daten_contentprovider"
+		android:layout_width="match_parent"
+		android:layout_height="wrap_content"
+		android:text="@string/btn_daten_content_provider"
+		android:onClick="onButtonClick"
+		/>
+</LinearLayout>
