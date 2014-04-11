@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent" 
+    android:orientation="vertical">
+
+    <TextView
+        android:id="@+id/txt_fragments_obstansicht"
+        style="@style/Widget.Text.H1"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/txt_fragments_obstansicht" />
+
+    <fragment
+        android:id="@+id/fragment_ansicht"
+        android:name="eu.androidtraining.dashboard.fragments.ObstFragment"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" >
+
+        <!-- Preview: layout=@layout/fragments_obstfragment -->
+    </fragment>
+
+</LinearLayout>

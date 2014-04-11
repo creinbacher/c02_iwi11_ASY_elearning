@@ -1,0 +1,287 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <!-- Labels und Texte -->
+    <string name="hello">Hello World, DashboardActivity!</string>
+    <string name="app_name">Dashboard</string>
+    <string name="txt_layouts">Layouts</string>
+    <string name="txt_zeile1">Zeile 1</string>
+    <string name="txt_zeile2">Zeile 2</string>
+    <string name="txt_zeile3">Zeile 3</string>
+    <string name="txt_title">Demo-Referenz</string>
+    <string name="txt_erstes_feld">Erstes Feld</string>
+    <string name="txt_zweites_feld">Zweites Feld</string>
+    <string name="txt_ja">Ja</string>
+    <string name="txt_noe">Nö</string>
+    <string name="txt_an">an</string>
+    <string name="txt_aus">aus</string>
+    <string name="txt_layouts_linear">LinearLayout</string>
+    <string name="txt_layouts_tabelle">TableLayout</string>
+    <string name="txt_layouts_grid">GridLayout</string>
+    <string name="txt_layouts_grid_beispiel1">Beispiel1 (Formular)</string>
+    <string name="txt_layouts_grid_beispiel2">Beispiel2 (Kacheln)</string>
+    <string name="txt_layouts_relativ">RelativeLayout</string>
+    <string name="txt_layouts_frame">FrameLayout</string>
+    <string name="txt_layouts_aufteilen">Layout aufteilen</string>
+    <string name="txt_fliesstext">Dies ist ein Fließtext mit einer gewissen 
+        Menge an Wörtern, deren einziger Zweck ist, diesen Absatz zu füllen. 
+        Das hätte man zugegebenermaßen auch mit einem Lorem-Ipsum-Blindtext 
+        erreichen können, aber das Auge erholt sich ganz gut, wenn es ab und 
+        zu auch mal etwas anderes liest.</string>
+    <string name="txt_layouts_varianten_desc">Drehen Sie Ihr Gerät oder den 
+        Emulator und sehen Sie, wie Android automatisch die passende 
+        Layoutvariante wählt.</string>
+    <string name="txt_layout_extrahieren">Dieser Teil des Layouts ist inkludiert:</string>
+    <string name="txt_layouts_varianten">Layout-Varianten</string>
+    <string name="txt_views">Views</string>
+    <string name="txt_textview">TextView</string>
+    <string name="txt_textview_text">Foo. Bar? Baz!</string>
+    <string name="txt_checkedtextview">CheckedTextView</string>
+    <string name="txt_button">Button</string>
+    <string name="txt_button_text">Schaltfläche</string>
+    <string name="txt_imageview">ImageView</string>
+    <string name="txt_imagebutton">ImageButton</string>
+    <string name="txt_edittext">EditText</string>
+    <string name="txt_checkbox">CheckBox</string>
+    <string name="txt_auswahl1">Auswahl 1</string>
+    <string name="txt_auswahl2">Auswahl 2</string>
+    <string name="txt_auswahl3">Auswahl 3</string>
+    <string name="txt_radiobutton">RadioButton</string>
+    <string name="txt_spinner">Spinner</string>
+    <string name="txt_analogclock">AnalogClock</string>
+    <string name="txt_digitalclock">DigitalClock</string>
+    <string name="txt_autocomplete">AutoComplete</string>
+    <string name="txt_datepicker">DatePicker</string>
+    <string name="txt_timepicker">TimePicker</string>
+    <string name="txt_progressbar">ProgressBar</string>
+    <string name="txt_rund">rund</string>
+    <string name="txt_balken">Balken</string>
+    <string name="txt_seekbar">SeekBar</string>
+    <string name="txt_togglebutton">ToggleButton</string>
+    <string name="txt_activities">Activities</string>
+    <string name="txt_activities_unteractivity">Unteractivity aufrufen</string>
+    <string name="txt_activities_gelandet">Glückwunsch! Sie sind auf der Unteractivity gelandet.</string>
+    <string name="txt_activities_ihre_frage">Ihre Frage:</string>
+    <string name="txt_activities_unteractivity_mit_antwort">Unteractivity-Orakel</string>
+    <string name="txt_activities_unteractivity_ueberlegt">Lass mich überlegen&#8230;</string>
+    <string name="txt_platzhalter">(Platzhalter)</string>
+    <string name="txt_intents">Intents</string>
+    <string name="txt_intents_eigener">Eigener Intent</string>
+    <string name="txt_intents_eigener_text">Klasse! Sie haben gerade kennengelernt, wie Sie einen eigenen, selbstgestrickten Intent aufrufen.</string>
+    <string name="txt_fragments">Fragments</string>
+    <string name="txt_fragments_nacheinander">Fragments in 2 Activities</string>
+    <string name="txt_fragments_zusammen">Fragments in 1 Activity</string>
+    <string name="txt_liste_leer">Diese Liste ist leer.</string>
+    <string name="txt_fragments_obstansicht">Detailansicht</string>
+    <string name="txt_ein_bild">Ein Bild</string>
+    <string name="txt_menues_titel">Menüs</string>
+    <string name="txt_menues_optionsmenues">Optionsmenü</string>
+    <string name="txt_menues_optionsmenues_hint">
+    	Tippen Sie auf den Hardware-Menübutton Ihres Geräts, 
+    	falls vorhanden, um ein Optionsmenü anzuzeigen.
+    </string>
+    <string name="txt_menues_kontextmenues">Kontextmenüs</string>
+    <string name="txt_menues_kontextmenues_hint">
+    	Tippen Sie lange auf die Schaltfläche, 
+    	um das Kontextmenü anzuzeigen. Aber Vorsicht: die Bedeutung
+    	des langen Klicks hat sich mit Android 4 leicht geändert.
+    	Vermeiden Sie ein Kontextmenü bei Elementen einer Übersicht,
+    	also etwa in einer Liste, und starten Sie bei Lang-Klick
+    	statt dessen einen "Datenauswahlmodus".
+    </string>
+    <string name="txt_menues_icons">vorhandene Menü-Icons</string>
+    <string name="txt_menues_icons_hint">
+    	Übersicht über einige der in Android vorhandenen Icons
+    	(Zugriff über \'android.R.drawable\', tippen Sie auf das
+    	Icon, um die Drawable-ID zu sehen)
+    </string>
+    <string name="txt_menues_opt_hilfe">Hilfe</string>
+    <string name="txt_menues_opt_einstellungen">Einstellungen</string>
+    <string name="txt_menues_opt_auge">Ansicht</string>
+    <string name="txt_menues_opt_allefreunde">Alle Freunde</string>
+    <string name="txt_dialoge">Dialogs &amp; Toasts</string>
+    <string name="txt_dialoge_toast">Toast-Nachricht</string>
+    <string name="txt_dialoge_dialog">Dialogfenster</string>
+    <string name="txt_dialoge_titel_einfach">Schon gewusst:</string>
+    <string name="txt_dialoge_nachricht_einfach">
+    	Elefanten sind die einzigen Landsäugetiere,
+    	die nicht springen können.
+    </string>
+    <string name="txt_dialoge_titel_auswahl">Ihre Auswahl</string>
+    <string name="txt_dialoge_btn_einfach">Aha.</string>
+    <string name="txt_benachrichtigungen">Benachrichtigungen</string>
+    <string name="txt_benachrichtigungen_ticker">Neue Nachricht eingetroffen!</string>
+    <string name="txt_benachrichtigungen_titel">Wer sagt\'s denn!</string>
+    <string name="txt_benachrichtigungen_nachricht">
+    	Wenn Sie diese Nachricht sehen, 
+    	haben Sie erfolgreich eine Benachrichtigung
+    	erstellt und aufgerufen.
+    </string>
+    <string name="txt_daten">Daten</string>
+    <string name="txt_daten_adapter">Listen &amp; Adapter</string>
+    <string name="txt_daten_adapter_laenderliste">Länderliste</string>
+    <string name="txt_daten_adapter_fruchtliste">Früchte</string>
+	<string name="txt_daten_einfacheListen">Einfache Listen</string>
+	<string name="txt_daten_dateisystem">Dateisystem</string>
+	<string name="txt_daten_datenbanken">Datenbanken</string>
+	<string name="txt_daten_datenbanken_db_geoeffnet">Datenbank geöffnet</string>
+	<string name="txt_daten_datenbanken_db_geschlossen">Datenbank geschlossen</string>
+	<string name="txt_daten_datenbanken_einfuegenLabel">Neue Schiffsklasse</string>
+	<string name="txt_daten_datenbanken_leer">keine Daten gefunden.</string>
+	<string name="txt_daten_contentProvider">Content Provider</string>
+	<string name="txt_daten_contentProvider_label">Kontakte</string>
+	<string name="txt_daten_contentProvider_leer">keine Kontakte gefunden.</string>
+	<string name="txt_voreinstellungen">Voreinstellungen</string>
+	<string name="txt_voreinstellungen_allgemein">Allgemein</string>
+	<string name="txt_voreinstellungen_persoenliches">Persönliches</string>
+	<string name="txt_voreinstellungen_benutzer">Benutzername</string>
+	<string name="txt_voreinstellungen_lieblingsfarbe">Lieblingsfarbe</string>
+	<string name="txt_voreinstellungen_stimmung">Stimmung</string>
+	<string name="txt_hintergrund">Hintergrund-Aktivitäten</string>
+	<string name="txt_hintergrund_broadcasts">Broadcasts</string>
+	<string name="txt_hintergrund_broadcast_empfangen">Broadcast empfangen</string>
+	<string name="txt_hintergrund_broadcast_hint">Stellen Sie die Akkukapazität 
+	    ihres Emulators auf einen niedrigen Wert (&lt;15%) oder auf maximale
+	    Kapazität. Oder lassen Sie Ihr Gerät leerlaufen.  ;-)</string>
+	<string name="txt_hintergrund_services">Services</string>
+	<string name="txt_hintergrund_services_start">Service gestartet</string>
+	<string name="txt_hintergrund_services_stop">Service gestoppt</string>
+	<string name="txt_hintergrund_services_meldung">Der Service läuft seit %DAUER Sekunden</string>
+    <string name="txt_aussenwelt">Außenwelt</string>
+    <string name="txt_aussenwelt_internet">Internet</string>
+    <string name="txt_aussenwelt_internet_adresse">Internet-Adresse:</string>
+    <string name="txt_aussenwelt_sms">SMS empfangen/versenden</string>
+    <string name="txt_aussenwelt_sms_neu">Neue SMS</string>
+    <string name="txt_multimedia">Multimedia</string>
+    <string name="txt_multimedia_sound">Sound</string>
+    <string name="txt_multimedia_sound_mediaplayer">via MediaPlayer</string>
+    <string name="txt_multimedia_sound_soundpool">via SoundPool</string>
+    <string name="txt_multimedia_video">Video</string>
+    <string name="txt_multimedia_bilder">Bilder</string>
+    <string name="txt_multimedia_bilder_qr">Bilder (z.B. QR)</string>
+    <string name="txt_multimedia_bilder_text">Text zum Kodieren:</string>
+    <string name="txt_multimedia_spracherkennung">Spracherkennung</string>
+    <string name="txt_multimedia_spracherkennung_nv">
+    	Diese Systemkonfiguration unterstützt keine Spracherkennung.
+    </string>
+    <string name="txt_multimedia_spracherkennung_kein_ergebnis">Kein Ergebnis</string>
+    
+    <string name="txt_hardware">Hardware verwenden</string>
+    <string name="txt_hardware_eingabe">Benutzereingaben auswerten</string>
+    <string name="txt_hardware_eingabe_typ">Eingabemethode:</string>
+    <string name="txt_hardware_eingabe_koordinate">Koordinate:</string>
+    <string name="txt_hardware_eingabe_detail">Detail:</string>
+    <string name="txt_hardware_eingabe_taste">Taste: </string>
+    <string name="txt_hardware_kamera">Kamera</string>
+    <string name="txt_hardware_kamera_bild">Bild gespeichert:</string>
+    <string name="txt_hardware_sensoren">Sensoren</string>
+    <string name="txt_hardware_sensoren_accel">Accelerometer (m/s²)</string>
+    <string name="txt_hardware_sensoren_schwerkraft">Schwerkraft (m/s²)</string>
+    <string name="txt_hardware_sensoren_rotation">Rotation (rad/s)</string>
+    <string name="txt_hardware_sensoren_magnet">Magnetfeld (μT)</string>
+    <string name="txt_hardware_sensoren_licht">Licht (lux)</string>
+    <string name="txt_hardware_sensoren_naehe">Nähe (cm)</string>
+    <string name="txt_hardware_sensoren_temperatur">Temperatur (°F)</string>
+    <string name="txt_hardware_sensoren_x">x-Achse</string>
+    <string name="txt_hardware_sensoren_y">y-Achse</string>
+    <string name="txt_hardware_sensoren_z">z-Achse</string>
+    <string name="txt_hardware_sensoren_rollen">Rollen (Roll)</string>
+    <string name="txt_hardware_sensoren_nicken">Nicken (Pitch)</string>
+    <string name="txt_hardware_sensoren_Gieren">Gieren (Yaw)</string>
+    <string name="txt_hardware_sensoren_nv">n.V.</string>
+    <string name="txt_hardware_sensoren_wert">Wert</string>
+    <string name="txt_hardware_mikrofon">Mikrofon</string>
+    
+    <string name="txt_verschiedenes">Verschiedenes</string>
+	<string name="txt_verschiedenes_threads">Threads</string>
+	<string name="txt_verschiedenes_threads_warten">Moment bitte…</string>
+	<string name="txt_verschiedenes_threads_thread_fertig">Berechnung abgeschlossen</string>
+	<string name="txt_verschiedenes_threads_thread_beendet">Thread beendet</string>
+	<string name="txt_widget_slogan">Damit Du weißt,\nwie Android geht</string>
+    				
+    <!-- Schaltflächen-Labels -->
+    <string name="btn_layouts">Layouts</string>
+    <string name="btn_layouts_linear">@string/txt_layouts_linear</string>
+    <string name="btn_layouts_tabelle">@string/txt_layouts_tabelle</string>
+    <string name="btn_layouts_grid">@string/txt_layouts_grid</string>
+    <string name="btn_layouts_relativ">@string/txt_layouts_relativ</string>
+    <string name="btn_layouts_frame">@string/txt_layouts_frame</string>
+    <string name="btn_layouts_aufteilen">@string/txt_layouts_aufteilen</string>
+    <string name="btn_layouts_varianten">@string/txt_layouts_varianten</string>
+    <string name="btn_views">@string/txt_views</string>
+    <string name="btn_activities">@string/txt_activities</string>
+    <string name="btn_activities_unteractivity">@string/txt_activities_unteractivity</string>
+    <string name="btn_activities_unteractivity_mit_antwort">Unteractivity befragen</string>
+    <string name="btn_activities_unteractivity_antwort_geben">Antwort geben</string>
+    <string name="btn_intents">@string/txt_intents</string>
+    <string name="btn_intents_telefon">Telefonnummer wählen</string>
+    <string name="btn_intents_sms">SMS verfassen</string>
+    <string name="btn_intent_webadresse">Browser öffnen</string>
+    <string name="btn_intents_email">E-Mail schreiben</string>
+    <string name="btn_intents_karte">Karte zeigen</string>
+    <string name="btn_intents_navigieren">Navigieren</string>
+    <string name="btn_intents_streetview">Street View</string>
+    <string name="btn_intents_spezial">Eigener Intent</string>
+    <string name="btn_fragments">@string/txt_fragments</string>
+    <string name="btn_fragments_nacheinander">@string/txt_fragments_nacheinander</string>
+    <string name="btn_fragments_zusammen">@string/txt_fragments_zusammen</string>
+	<string name="btn_menues">Menüs</string>
+	<string name="btn_menues_kontextmenue">lang tippen/klicken</string>
+	<string name="btn_menues_icons">Menü-Icons</string>
+	<string name="btn_dialoge">Dialoge &amp; Toasts</string>
+    <string name="btn_dialoge_toast_aufrufen">Toast aufrufen</string>
+    <string name="btn_dialoge_dialog_einfach">einfach</string>
+    <string name="btn_dialoge_dialog_auswahl">mit Auswahl</string>
+    <string name="btn_dialoge_dialog_mehrfach">mit Mehrfachauswahl</string>
+    <string name="btn_dialoge_dialog_einzel">mit Einzelauswahl</string>
+    <string name="btn_dialoge_dialog_custom">mit bel. Layout</string>
+    <string name="btn_dialoge_dialog_einfach_angepasst">einfach, angepasst</string>
+	<string name="btn_benachrichtigungen">Benachrichtigungen</string>
+	<string name="btn_benachrichtigungen_ausloesen">Benachrichtigung auslösen</string>
+	<string name="btn_daten">Datenzugriff</string>
+	<string name="btn_daten_adapter">Listen &amp; Adapter</string>
+	<string name="btn_daten_einfacheListen">einfache Listen</string>
+	<string name="btn_daten_einstellungen">Einstellungen</string>
+	<string name="btn_daten_dateisystem">Dateisystem</string>
+	<string name="btn_daten_dateisystem_laden">Datei laden</string>
+	<string name="btn_daten_dateisystem_speichern">Datei speichern</string>
+	<string name="btn_daten_datenbanken">Datenbanken</string>
+	<string name="btn_daten_datenbanken_einfuegen">Schiffsklasse einfügen</string>
+	<string name="btn_daten_content_provider">Content Provider</string>
+	<string name="btn_hintergrund">Hintergrund-Aktivitäten</string>
+	<string name="btn_hintergrund_broadcasts">Broadcasts</string>
+	<string name="btn_hintergrund_broadcast_senden">Broadcast senden</string>
+	<string name="btn_hintergrund_services">Services</string>
+	<string name="btn_hintergrund_services_start">Service starten</string>
+	<string name="btn_hintergrund_services_stop">Service stoppen</string>
+	<string name="btn_aussenwelt">Außenwelt</string>
+	<string name="btn_aussenwelt_internet">Internet</string>
+	<string name="btn_aussenwelt_internet_go">Go</string>
+	<string name="btn_aussenwelt_sms">SMS empfangen/senden</string>
+	<string name="btn_aussenwelt_sms_empfangen">SMS empfangen</string>
+	<string name="btn_aussenwelt_sms_senden">SMS senden</string>
+	<string name="btn_multimedia">Multimedia</string>
+	<string name="btn_multimedia_sound">Sound</string>
+	<string name="btn_multimedia_sound_play">Sound abspielen</string>
+	<string name="btn_multimedia_video">Video</string>
+	<string name="btn_multimedia_bilder">Bilder</string>
+	<string name="btn_multimedia_bilder_laden">Bild laden</string>
+	<string name="btn_multimedia_qrcode_laden">QR-Code laden</string>
+	<string name="btn_multimedia_spracherkennung">Spracherkennung</string>
+	<string name="btn_multimedia_spracherkennung_erkennen">Sprechen Sie!</string>
+	<string name="btn_hardware">Hardware verwenden</string>
+	<string name="btn_hardware_eingabe">Benutzereingabe auswerten</string>
+	<string name="btn_hardware_kamera">Kamera verwenden</string>
+	<string name="btn_hardware_sensoren">Sensoren</string>
+	<string name="btn_hardware_mikrofon">Mikrofon</string>
+	<string name="btn_hardware_mikrofon_aufnehmen">Aufnahme starten</string>
+	<string name="btn_hardware_mikrofon_aufnahme_stoppen">Aufnahme stoppen</string>
+	<string name="btn_hardware_mikrofon_abspielen">Sound abspielen</string>
+	<string name="btn_hardware_mikrofon_abspielen_stoppen">Sound stoppen</string>
+	<string name="btn_verschiedenes">Verschiedenes</string>
+	<string name="btn_verschiedenes_threads">Threads</string>
+	<string name="btn_verschiedenes_threads_langwierig">laaaaangwierige Operation</string>
+	<string name="btn_verschiedenes_threads_mit_thread">laaangwierig mit Thread</string>
+	<string name="txt_fragment_platzhalter">Hier ist viel Platz für ein (Detail-) Fragment!</string>
+					
+</resources>

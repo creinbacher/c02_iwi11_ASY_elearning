@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="app_name">MCO Campus02</string>
+    <string name="hello_world">Hello MOBILE WORLD!</string>
+    <string name="action_start">Start</string>
+    <string name="action_save">Speichern</string>
+    <string name="title_activity_activity2">MCO - Activity2</string>
+    <string name="btnTextToActivity2">zu Activity ZWEI</string>
+    <string name="btnTextToActivityStart">zur ListActivity </string>
+    <string name="btnTextInfo">INFO</string>
+    <string name="speicherText">Text zum SPEICHERN</string>
+    <string name="helloActivity2">MCO - 22.03.2014</string>
+    <string name="infoTextActivity2"><![CDATA[  <h2><font color="red">Themen</font></h2>-Trends: Teil 2<br></br><br></br>-Android Theorie<br></br><br></br>-Android HelloMCO ]]></string>
+    <string name="title_activity_second">SecondActivity</string>
+    <string name="title_activity_list_view">ListViewActivity</string>
+    <string name="title_activity_list_view_activity2">ListViewActivity2</string>
+    
+</resources>
