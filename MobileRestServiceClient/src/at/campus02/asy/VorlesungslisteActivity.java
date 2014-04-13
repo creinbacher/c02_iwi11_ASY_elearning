@@ -25,9 +25,10 @@ import at.campus02.asy.service.CallRestService;
 
 public class VorlesungslisteActivity extends Activity {
 
-	// TODO: Aus einer Config auslesen
+	// TODO: Eventuell aus einer Config auslesen
 	public static final String BASE_URL = "http://win11-asy.azurewebsites.net/Campus02/asy";
 
+	//speichert die über REST geladenen Termine
 	private ArrayList<Vorlesungstermin> termine = null;
 
 	private ListView vorlesungsListView = null;
@@ -48,23 +49,21 @@ public class VorlesungslisteActivity extends Activity {
 					public void onItemClick(AdapterView<?> parent, View view,
 							int position, long id) {
 
-						// ListView Clicked item index
+						//holen des items an der entsprechenden positoin...
 						int itemPosition = position;
-						Log.d("CallRestService", "itemPosition:" + itemPosition
-								+ " id:" + id);
-						// ListView Clicked item value
 						Vorlesungstermin itemValue = getTermine().get(
 								itemPosition);
 
 						Intent intent = new Intent(view.getContext(),
 								DetailActivity.class);
-						// we need the ID to load data in Detail view
+						// ... damit wir die vorlesungsid an die Detailansicht übergeben können
 						intent.putExtra(Vorlesungstermin.VORLESUNGSTERMINID,
 								itemValue.getVorlesungsterminID());
 						startActivity(intent);
 					}
 
 				});
+		//gleich beim starten die daten vom service holen
 		new CallListService().execute(BASE_URL);
 	}
 
@@ -84,7 +83,7 @@ public class VorlesungslisteActivity extends Activity {
 		getVorlesungsListView().setAdapter(listAdapter);
 		if (exceptionOccured) {
 			Toast.makeText(getApplicationContext(),
-					"Fehler beim lesen der Daten aufgetreten",
+					"Fehler beim Lesen der Daten aufgetreten",
 					Toast.LENGTH_LONG).show();
 		}
 	}
@@ -92,6 +91,7 @@ public class VorlesungslisteActivity extends Activity {
 	@Override
 	public boolean onOptionsItemSelected(MenuItem item) {
 		int id = item.getItemId();
+		//nur action refresh - settings haben wir keine
 		if (id == R.id.action_refresh) {
 			new CallListService().execute(BASE_URL);
 			return true;
@@ -135,6 +135,8 @@ public class VorlesungslisteActivity extends Activity {
 				exceptionOccured = false;
 				CallRestService crs = new CallRestService();
 				try {
+					//Nachdem wir davon ausgehen, das mehr als eine Vorlesung zurück kommt => JSONArray
+					//TODO: Testen was passiert, wenn wir nur einen Vorlesung haben
 					JSONArray json = new JSONArray(crs.doReadCall(params[0]));
 					getTermine().clear();
 					if (null != json) {
@@ -165,7 +167,7 @@ public class VorlesungslisteActivity extends Activity {
 
 		@Override
 		protected void onPreExecute() {
-			Log.d("CallRestService", "onPreExecute");
+			//Benutzer über ServiceCall informieren
 			getProgressDialog().show();
 		}
 	}

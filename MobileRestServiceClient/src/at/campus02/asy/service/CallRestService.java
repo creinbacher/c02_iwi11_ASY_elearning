@@ -35,11 +35,11 @@ public class CallRestService {
 		Log.d(TAG, urlString);
 		try {
 			//http://blog.strikeiron.com/bid/73189/Integrate-a-REST-API-into-Android-Application-in-less-than-15-minutes
-			//TODO: vielleicht URL-Header setzen, damit auch wirklich immer JSON zurückkommt
 			URL url = new URL(urlString);
 			urlConnection = (HttpURLConnection) url.openConnection();
 			urlConnection.setConnectTimeout(CONNECTION_TIMEOUT);
 	        urlConnection.setReadTimeout(DATARETRIEVAL_TIMEOUT);
+	        urlConnection.setRequestProperty("Content-Type","application/json"); 
 	        
 	        int statusCode = urlConnection.getResponseCode();
 	        Log.d(TAG, "statuscode: "+statusCode);
@@ -56,6 +56,33 @@ public class CallRestService {
 	        }
 	    }  
 		return null;
+	}
+	
+	public boolean doWriteCall(String urlString){
+		HttpURLConnection urlConnection =null;
+		Log.d(TAG, urlString);
+		try {
+			URL url = new URL(urlString);
+			urlConnection = (HttpURLConnection) url.openConnection();
+			urlConnection.setConnectTimeout(CONNECTION_TIMEOUT);
+	        urlConnection.setReadTimeout(DATARETRIEVAL_TIMEOUT);
+	        urlConnection.setRequestMethod("PUT");	//use .setDoInput(true); in case of POST
+	        urlConnection.setRequestProperty("Content-Type","application/json"); 
+	        
+	        int statusCode = urlConnection.getResponseCode();
+	        Log.d(TAG, "statuscode: "+statusCode);
+	        if (statusCode != HttpURLConnection.HTTP_OK) {
+	            return false;
+	        }
+	        return true;
+		} catch (Exception e) {
+			Log.e(TAG, "Fehler beim Serviceaufruf aufgetreten: "+e.getMessage());
+		}finally {
+	        if (urlConnection != null) {
+	            urlConnection.disconnect();
+	        }
+	    }  
+		return false;
 	}
 	
 	
