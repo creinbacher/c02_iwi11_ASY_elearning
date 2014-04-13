@@ -101,7 +101,7 @@ public class VorlesungslisteActivity extends Activity {
 
 	public ArrayList<Vorlesungstermin> getTermine() {
 		if (null == termine) {
-			termine = new ArrayList<>();
+			termine = new ArrayList<Vorlesungstermin>();
 		}
 		return termine;
 	}
