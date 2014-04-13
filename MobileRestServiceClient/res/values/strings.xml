@@ -15,5 +15,9 @@
     <string name="notiz">Notiz:</string>
     <string name="notizBearbeiten">Notiz bearbeiten</string>
     <string name="zuKalenderHinzufuegen">Zu meinem Kalender hinzufügen</string>
+    <string name="button_add">Übernehmen</string>
+    <string name="button_cancel">Abbrechen</string>
+    <string name="title_activity_dialog">DialogActivity</string>
+    <string name="hello_world">Hello world!</string>
 
 </resources>

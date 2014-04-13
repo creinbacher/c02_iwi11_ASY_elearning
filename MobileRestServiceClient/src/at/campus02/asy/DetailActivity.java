@@ -5,17 +5,23 @@ import java.text.NumberFormat;
 import org.json.JSONObject;
 
 import android.app.Activity;
+import android.app.AlertDialog;
 import android.app.ProgressDialog;
+import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.provider.CalendarContract;
 import android.provider.CalendarContract.Events;
 import android.util.Log;
+import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.RatingBar;
 import android.widget.RatingBar.OnRatingBarChangeListener;
 import android.widget.TextView;
@@ -27,25 +33,26 @@ import at.campus02.asy.service.CallRestService;
 public class DetailActivity extends Activity {
 
 	private VorlesungsterminDetail terminDetails = null;
-
 	private boolean exceptionOccured = false;
-
 	private ProgressDialog progress = null;
-	
 	public static final String BASE_URL_RATING = "http://win11-asy.azurewebsites.net/Campus02/Like/";
+	final Context context = this;
+	public static final String PREFS_NAME = "Vorlesungen";
+	private SharedPreferences notizen;
 	
-
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_detail);
 		initializeButtons();
 		Intent intent = getIntent();
-		//Mit der übergebenens VorlesungsID gleich mal die Detaildaten lesen
+		//Mit der uebergebenen VorlesungsID gleich mal die Detaildaten lesen
 		Long vorlesungsid = (Long) intent.getExtras().get(
 				Vorlesungstermin.VORLESUNGSTERMINID);
 		new CallDetailService().execute(VorlesungslisteActivity.BASE_URL + "/"
 				+ vorlesungsid);
+		// Restore preferences
+	     notizen = getSharedPreferences(PREFS_NAME, 0);
 	}
 
 	private void refreshData() {
@@ -72,6 +79,10 @@ public class DetailActivity extends Activity {
 
 			TextView details = (TextView) findViewById(R.id.details);
 			details.setText(getTerminDetails().getDetails());
+			
+			TextView notiz = (TextView) findViewById(R.id.notiz);
+			notiz.setText(notizen.getString(getTerminDetails().getVorlesungsterminID().toString(), ""));
+			
 		}
 		if (exceptionOccured) {
 			Toast.makeText(getApplicationContext(),
@@ -87,15 +98,44 @@ public class DetailActivity extends Activity {
 
 			@Override
 			public void onClick(View v) {
-				//TODO: Notiz anzeigen (popup oder eigene view) und dann speichern
-				//http://developer.android.com/guide/topics/data/data-storage.html
-				// => SharedPreferences sollten passen
+                // get layout view
+				LayoutInflater layoutInflater = LayoutInflater.from(context);
+                View promptView = layoutInflater.inflate(R.layout.activity_dialog, null);
+                AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(context);
 
+                // set prompts.xml to be the layout file of the alertdialog builder
+                alertDialogBuilder.setView(promptView);
+                final EditText input = (EditText) promptView.findViewById(R.id.notizinput);
+
+                // setup a dialog window
+                alertDialogBuilder
+                        .setCancelable(false)
+                        .setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                                    public void onClick(DialogInterface dialog, int id) {
+                                        // get user input and set it to result
+                            			TextView details = (TextView) findViewById(R.id.notiz);
+                            			details.setText(input.getText());
+                            			SharedPreferences.Editor editor = notizen.edit();
+                            			editor.putString(getTerminDetails().getVorlesungsterminID().toString(), input.getText().toString());
+                            			editor.commit();
+                            			getTerminDetails().setKommentar(input.getText().toString());
+                                    }
+                                })
+                        .setNegativeButton("Cancel",
+                                new DialogInterface.OnClickListener() {
+                                    public void onClick(DialogInterface dialog, int id) {
+                                        dialog.cancel();
+                                    }
+                                });
+
+                // create an alert dialog
+                AlertDialog alertD = alertDialogBuilder.create();
+                alertD.show();
 			}
 		});
 		
 		//die bewertungw wird onChange upgedated
-		//TODO: prüfen ob nicht onClick gscheiter wäre
+		//TODO: pruefen ob nicht onClick gscheiter waere
 		RatingBar bewertung = (RatingBar) findViewById(R.id.bewertung);
 		bewertung.setOnRatingBarChangeListener(new OnRatingBarChangeListener() {
 			public void onRatingChanged(RatingBar ratingBar, float rating,
@@ -103,10 +143,9 @@ public class DetailActivity extends Activity {
 				//http://win11-asy.azurewebsites.net/Campus02/Like/1?anzahlSterne=4
 				new CallRatingService().execute(BASE_URL_RATING+ getTerminDetails().getVorlesungsterminID()+"?anzahlSterne="+((int) rating),
 						VorlesungslisteActivity.BASE_URL + "/"+ getTerminDetails().getVorlesungsterminID());
-				
-	 
 			}
 		});
+		
 	}
 
 	@Override
@@ -170,7 +209,7 @@ public class DetailActivity extends Activity {
 				CallRestService crs = new CallRestService();
 				exceptionOccured = false;
 				try {
-					//hier kommt genau ein Objekt zurück, deshalb gleich ein JSONObject und kein JSONArray
+					//hier kommt genau ein Objekt zurï¿½ck, deshalb gleich ein JSONObject und kein JSONArray
 					JSONObject vorlesung = new JSONObject(
 							crs.doReadCall(params[0]));
 					setTerminDetails(new VorlesungsterminDetail(vorlesung));

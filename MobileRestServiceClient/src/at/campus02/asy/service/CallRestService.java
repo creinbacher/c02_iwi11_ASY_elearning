@@ -44,7 +44,7 @@ public class CallRestService {
 	        int statusCode = urlConnection.getResponseCode();
 	        Log.d(TAG, "statuscode: "+statusCode);
 	        if (statusCode != HttpURLConnection.HTTP_OK) {
-	            // TODO: Handle Errors => in dem Fall eine leere liste zurückgeben oder eine Exception werfen?
+	            // TODO: Handle Errors => in dem Fall eine leere liste zurueckgeben oder eine Exception werfen?
 	        }
 	         BufferedReader reader = new BufferedReader(new InputStreamReader(urlConnection.getInputStream(), "UTF-8"), 8);
 	         return getResponseText(reader);

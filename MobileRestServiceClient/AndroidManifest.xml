@@ -30,6 +30,10 @@
             android:label="@string/title_activity_detail"
             android:permission="android.permission.INTERNET" >
         </activity>
+        <activity
+            android:name="at.campus02.asy.DialogActivity"
+            android:label="@string/title_activity_dialog" >
+        </activity>
     </application>
 
 </manifest>

@@ -10,13 +10,17 @@ import org.json.JSONObject;
 import android.annotation.SuppressLint;
 import android.util.Log;
 
-public class Vorlesungstermin {
+@SuppressLint("SimpleDateFormat") public class Vorlesungstermin {
 
 	protected static final String DATEFORMAT = "yyyy-MM-dd'T'HH:mm:ss";
+	protected static final String OUTPUTFORMAT = "dd.MM.yyy' 'HH:mm";
 	public static final String VORLESUNGSTERMINID = "vorlesungsterminID";
 	
 	@SuppressLint("SimpleDateFormat")
 	protected static final SimpleDateFormat SDF = new SimpleDateFormat(DATEFORMAT);
+	@SuppressLint("SimpleDateFormat")
+	protected static final SimpleDateFormat OUT = new SimpleDateFormat(OUTPUTFORMAT);
+	
 
 	private Long vorlesungsterminID = null;
 	private String titel = null;
@@ -65,8 +69,8 @@ public class Vorlesungstermin {
 
 	@Override
 	public String toString() {
-		return titel + ":" + SimpleDateFormat.getInstance().format(von) + " - "
-				+ SimpleDateFormat.getInstance().format(bis);
+		return titel + ":\n" + OUT.format(von) + " - "
+				+ OUT.format(bis);
 	}
 
 }

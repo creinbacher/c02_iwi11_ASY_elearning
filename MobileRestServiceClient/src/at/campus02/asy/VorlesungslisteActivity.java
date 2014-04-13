@@ -28,7 +28,7 @@ public class VorlesungslisteActivity extends Activity {
 	// TODO: Eventuell aus einer Config auslesen
 	public static final String BASE_URL = "http://win11-asy.azurewebsites.net/Campus02/asy";
 
-	//speichert die über REST geladenen Termine
+	//speichert die Ã¼ber REST geladenen Termine
 	private ArrayList<Vorlesungstermin> termine = null;
 
 	private ListView vorlesungsListView = null;
@@ -49,14 +49,14 @@ public class VorlesungslisteActivity extends Activity {
 					public void onItemClick(AdapterView<?> parent, View view,
 							int position, long id) {
 
-						//holen des items an der entsprechenden positoin...
+						//holen des items an der entsprechenden position...
 						int itemPosition = position;
 						Vorlesungstermin itemValue = getTermine().get(
 								itemPosition);
 
 						Intent intent = new Intent(view.getContext(),
 								DetailActivity.class);
-						// ... damit wir die vorlesungsid an die Detailansicht übergeben können
+						// ... damit wir die vorlesungsid an die Detailansicht uebergeben koennen
 						intent.putExtra(Vorlesungstermin.VORLESUNGSTERMINID,
 								itemValue.getVorlesungsterminID());
 						startActivity(intent);
@@ -75,7 +75,6 @@ public class VorlesungslisteActivity extends Activity {
 
 	private void refreshListView() {
 
-		// TODO: gscheit aufbereiten und ausgeben
 		ArrayAdapter<Vorlesungstermin> listAdapter = new ArrayAdapter<Vorlesungstermin>(
 				this, android.R.layout.simple_list_item_1, android.R.id.text1,
 				getTermine());
@@ -101,7 +100,7 @@ public class VorlesungslisteActivity extends Activity {
 
 	public ArrayList<Vorlesungstermin> getTermine() {
 		if (null == termine) {
-			termine = new ArrayList<>();
+			termine = new ArrayList<Vorlesungstermin>();
 		}
 		return termine;
 	}
@@ -135,7 +134,7 @@ public class VorlesungslisteActivity extends Activity {
 				exceptionOccured = false;
 				CallRestService crs = new CallRestService();
 				try {
-					//Nachdem wir davon ausgehen, das mehr als eine Vorlesung zurück kommt => JSONArray
+					//Nachdem wir davon ausgehen, das mehr als eine Vorlesung zurueck kommt => JSONArray
 					//TODO: Testen was passiert, wenn wir nur einen Vorlesung haben
 					JSONArray json = new JSONArray(crs.doReadCall(params[0]));
 					getTermine().clear();
@@ -167,7 +166,7 @@ public class VorlesungslisteActivity extends Activity {
 
 		@Override
 		protected void onPreExecute() {
-			//Benutzer über ServiceCall informieren
+			//Benutzer ueber ServiceCall informieren
 			getProgressDialog().show();
 		}
 	}

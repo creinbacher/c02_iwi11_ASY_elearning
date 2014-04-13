@@ -25,20 +25,70 @@ public final class R {
         public static final int ic_launcher=0x7f020000;
     }
     public static final class id {
-        public static final int action_settings=0x7f080001;
-        public static final int container=0x7f080000;
+        public static final int action_calendar=0x7f08001f;
+        public static final int action_refresh=0x7f080021;
+        public static final int action_settings=0x7f080020;
+        public static final int anzahlVotes=0x7f08000e;
+        public static final int bewertung=0x7f080019;
+        public static final int bis=0x7f080008;
+        public static final int container=0x7f08001c;
+        public static final int details=0x7f080014;
+        public static final int durchschnittlichesRating=0x7f080011;
+        public static final int gesamtSterne=0x7f08000b;
+        public static final int notiz=0x7f080017;
+        public static final int notizBearbeiten=0x7f08001b;
+        public static final int notizinput=0x7f08001d;
+        public static final int tableRow1=0x7f080000;
+        public static final int tableRow10=0x7f08001a;
+        public static final int tableRow2=0x7f080003;
+        public static final int tableRow3=0x7f080006;
+        public static final int tableRow4=0x7f080009;
+        public static final int tableRow5=0x7f08000c;
+        public static final int tableRow6=0x7f08000f;
+        public static final int tableRow7=0x7f080012;
+        public static final int tableRow8=0x7f080015;
+        public static final int tableRow9=0x7f080018;
+        public static final int textView1=0x7f080001;
+        public static final int textView2=0x7f080004;
+        public static final int textView3=0x7f080007;
+        public static final int textView4=0x7f08000a;
+        public static final int textView5=0x7f08000d;
+        public static final int textView6=0x7f080010;
+        public static final int textView7=0x7f080013;
+        public static final int textView8=0x7f080016;
+        public static final int titel=0x7f080002;
+        public static final int von=0x7f080005;
+        public static final int vorlesungsListe=0x7f08001e;
     }
     public static final class layout {
-        public static final int activity_main=0x7f030000;
-        public static final int fragment_main=0x7f030001;
+        public static final int activity_detail=0x7f030000;
+        public static final int activity_dialog=0x7f030001;
+        public static final int activity_vorlesungsliste=0x7f030002;
     }
     public static final class menu {
-        public static final int main=0x7f070000;
+        public static final int detail=0x7f070000;
+        public static final int dialog=0x7f070001;
+        public static final int main=0x7f070002;
     }
     public static final class string {
-        public static final int action_settings=0x7f050002;
+        public static final int action_refresh=0x7f050002;
+        public static final int action_settings=0x7f050001;
+        public static final int anzahlVotes=0x7f050008;
         public static final int app_name=0x7f050000;
-        public static final int hello_world=0x7f050001;
+        public static final int bis=0x7f050006;
+        public static final int button_add=0x7f05000e;
+        public static final int button_cancel=0x7f05000f;
+        public static final int details=0x7f05000a;
+        public static final int durchschnittlichesRating=0x7f050009;
+        public static final int gesamtSterne=0x7f050007;
+        public static final int hello_world=0x7f050011;
+        public static final int notiz=0x7f05000b;
+        public static final int notizBearbeiten=0x7f05000c;
+        public static final int titel=0x7f050004;
+        public static final int title_activity_detail=0x7f050003;
+        public static final int title_activity_dialog=0x7f050010;
+        public static final int von=0x7f050005;
+        public static final int zuKalenderHinzufuegen=0x7f05000d;
     }
     public static final class style {
         /** 
