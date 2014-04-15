@@ -106,11 +106,12 @@ public class DetailActivity extends Activity {
                 // set prompts.xml to be the layout file of the alertdialog builder
                 alertDialogBuilder.setView(promptView);
                 final EditText input = (EditText) promptView.findViewById(R.id.notizinput);
+                input.setText(((TextView) findViewById(R.id.notiz)).getText());
 
                 // setup a dialog window
                 alertDialogBuilder
                         .setCancelable(false)
-                        .setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                        .setPositiveButton(R.string.button_add, new DialogInterface.OnClickListener() {
                                     public void onClick(DialogInterface dialog, int id) {
                                         // get user input and set it to result
                             			TextView details = (TextView) findViewById(R.id.notiz);
@@ -121,7 +122,7 @@ public class DetailActivity extends Activity {
                             			getTerminDetails().setKommentar(input.getText().toString());
                                     }
                                 })
-                        .setNegativeButton("Cancel",
+                        .setNegativeButton(R.string.button_cancel,
                                 new DialogInterface.OnClickListener() {
                                     public void onClick(DialogInterface dialog, int id) {
                                         dialog.cancel();
