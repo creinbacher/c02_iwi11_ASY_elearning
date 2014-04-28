@@ -19,5 +19,6 @@
     <string name="button_cancel">Abbrechen</string>
     <string name="title_activity_dialog">DialogActivity</string>
     <string name="hello_world">Hello world!</string>
+    <string name="zurueck">Zurück</string>
 
 </resources>
