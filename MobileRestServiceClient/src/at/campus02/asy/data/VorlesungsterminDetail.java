@@ -5,6 +5,7 @@ import java.text.SimpleDateFormat;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import android.annotation.SuppressLint;
 import android.util.Log;
 
 public class VorlesungsterminDetail extends Vorlesungstermin {
@@ -13,6 +14,9 @@ public class VorlesungsterminDetail extends Vorlesungstermin {
 	private Integer anzahlVotes = null;
 	private String details=null;
 	private String kommentar=null;
+	
+	@SuppressLint("SimpleDateFormat")
+	protected static final SimpleDateFormat OUT = new SimpleDateFormat(OUTPUTFORMAT);
 	
 	
 	public VorlesungsterminDetail(JSONObject json) throws JSONException {
@@ -26,13 +30,10 @@ public class VorlesungsterminDetail extends Vorlesungstermin {
 		}
 	}
 	
-	public String getVonAsString() {
-		return SimpleDateFormat.getInstance().format(super.getVon());
+	public String getZeitAsString() {
+		return super.getDateString();
 	}
 	
-	public String getBisAsString() {
-		return SimpleDateFormat.getInstance().format(super.getBis());
-	}
 
 	public String getKommentar() {
 		return kommentar;
@@ -63,6 +64,28 @@ public class VorlesungsterminDetail extends Vorlesungstermin {
 		}
 		return "";
 	}
+	
+	public String getBewertungsString() {
+		if (null != anzahlVotes && null != gesamtSterne) {
+			String output = "(Durchschnitt %,.2f aus %d Stimmen)";
+			return String.format(output,getAvgBewertung(),anzahlVotes);
+		}
+		
+		return "";
+	}
+	
+	private double getAvgBewertung() {
+		double avg = 0.0;
+		
+		if (null != anzahlVotes && null != gesamtSterne) {
+			
+			if (anzahlVotes > 0) {
+				avg = (double)gesamtSterne / (double)anzahlVotes;
+			}
+		}
+		
+		return avg;
+	}
 
 	public String getDetails() {
 		return details;
@@ -70,8 +93,7 @@ public class VorlesungsterminDetail extends Vorlesungstermin {
 	
 	@Override
 	public String toString() {
-		return getTitel() + ":" + getVonAsString() + " - "
-				+ getBisAsString()+"\n"
+		return getTitel() + ":" + getDateString()+"\n"
 				+" Anzahl Votes: "+anzahlVotes+"\n"
 				+" Gesamt Sterne: "+gesamtSterne+"\n"
 				+" Details: "+details+"\n"

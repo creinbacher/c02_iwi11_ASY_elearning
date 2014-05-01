@@ -20,9 +20,12 @@ import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ListView;
 import android.widget.RatingBar;
+import android.widget.AdapterView.OnItemClickListener;
 import android.widget.RatingBar.OnRatingBarChangeListener;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -60,22 +63,12 @@ public class DetailActivity extends Activity {
 			TextView titel = (TextView) findViewById(R.id.titel);
 			titel.setText(getTerminDetails().getTitel());
 
-			TextView von = (TextView) findViewById(R.id.von);
-			von.setText(getTerminDetails().getVonAsString());
+			TextView zeit = (TextView) findViewById(R.id.zeit);
+			zeit.setText(getTerminDetails().getZeitAsString());
 
-			TextView bis = (TextView) findViewById(R.id.bis);
-			bis.setText(getTerminDetails().getBisAsString());
-
-			TextView gesamtSterne = (TextView) findViewById(R.id.gesamtSterne);
+			TextView bewertungString = (TextView) findViewById(R.id.bewertungString);
 			//Wichtig: als string setzen, sonst gibts eine Exception
-			gesamtSterne.setText(getTerminDetails().getGesamtSterneAsString()); 
-
-			TextView anzahlVotes = (TextView) findViewById(R.id.anzahlVotes);
-			anzahlVotes.setText(getTerminDetails().getAnzahlVotesAsString());
-
-			TextView durchschnittlichesRating = (TextView) findViewById(R.id.durchschnittlichesRating);
-			durchschnittlichesRating.setText(NumberFormat.getInstance().format(
-					getTerminDetails().getDurchschnittlichesRating()));
+			bewertungString.setText(getTerminDetails().getBewertungsString()); 
 
 			TextView details = (TextView) findViewById(R.id.details);
 			details.setText(getTerminDetails().getDetails());
@@ -92,49 +85,6 @@ public class DetailActivity extends Activity {
 	}
 
 	private void initializeButtons() {
-
-		Button notizBearbeiten = (Button) findViewById(R.id.notizBearbeiten);
-		notizBearbeiten.setOnClickListener(new View.OnClickListener() {
-
-			@Override
-			public void onClick(View v) {
-                // get layout view
-				LayoutInflater layoutInflater = LayoutInflater.from(context);
-                View promptView = layoutInflater.inflate(R.layout.activity_dialog, null);
-                AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(context);
-
-                // set prompts.xml to be the layout file of the alertdialog builder
-                alertDialogBuilder.setView(promptView);
-                final EditText input = (EditText) promptView.findViewById(R.id.notizinput);
-                input.setText(((TextView) findViewById(R.id.notiz)).getText());
-
-                // setup a dialog window
-                alertDialogBuilder
-                        .setCancelable(false)
-                        .setPositiveButton(R.string.button_add, new DialogInterface.OnClickListener() {
-                                    public void onClick(DialogInterface dialog, int id) {
-                                        // get user input and set it to result
-                            			TextView details = (TextView) findViewById(R.id.notiz);
-                            			details.setText(input.getText());
-                            			SharedPreferences.Editor editor = notizen.edit();
-                            			editor.putString(getTerminDetails().getVorlesungsterminID().toString(), input.getText().toString());
-                            			editor.commit();
-                            			getTerminDetails().setKommentar(input.getText().toString());
-                                    }
-                                })
-                        .setNegativeButton(R.string.button_cancel,
-                                new DialogInterface.OnClickListener() {
-                                    public void onClick(DialogInterface dialog, int id) {
-                                        dialog.cancel();
-                                    }
-                                });
-
-                // create an alert dialog
-                AlertDialog alertD = alertDialogBuilder.create();
-                alertD.show();
-			}
-		});
-		
 		//die bewertungw wird onChange upgedated
 		//TODO: pruefen ob nicht onClick gscheiter waere
 		RatingBar bewertung = (RatingBar) findViewById(R.id.bewertung);
@@ -158,11 +108,56 @@ public class DetailActivity extends Activity {
 	@Override
 	public boolean onOptionsItemSelected(MenuItem item) {
 		int id = item.getItemId();
-		if (id == R.id.action_calendar) {
-			addCalendarEvent();
-			return true;
+		switch (id) {
+			case R.id.action_calendar:
+				addCalendarEvent();
+				return true;
+			case R.id.notizBearbeitenMenu:
+				addNotiz();
+				return true;
+			case R.id.zurueck:
+				onBackPressed();
+				return true;
 		}
 		return super.onOptionsItemSelected(item);
+	}
+	
+	public void addNotiz() {
+		// get layout view
+		LayoutInflater layoutInflater = LayoutInflater.from(context);
+        View promptView = layoutInflater.inflate(R.layout.activity_dialog, null);
+        AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(context);
+
+        // set prompts.xml to be the layout file of the alertdialog builder
+        alertDialogBuilder.setView(promptView);
+        final EditText input = (EditText) promptView.findViewById(R.id.notizinput);
+        input.setText(((TextView) findViewById(R.id.notiz)).getText());
+
+        // setup a dialog window
+        alertDialogBuilder
+        		.setTitle(R.string.notizBearbeitenMenu)
+                .setCancelable(false)
+                .setPositiveButton(R.string.button_add, new DialogInterface.OnClickListener() {
+                            public void onClick(DialogInterface dialog, int id) {
+                                // get user input and set it to result
+                    			TextView details = (TextView) findViewById(R.id.notiz);
+                    			details.setText(input.getText());
+                    			SharedPreferences.Editor editor = notizen.edit();
+                    			editor.putString(getTerminDetails().getVorlesungsterminID().toString(), input.getText().toString());
+                    			editor.commit();
+                    			getTerminDetails().setKommentar(input.getText().toString());
+                            }
+                        })
+                .setNegativeButton(R.string.button_cancel,
+                        new DialogInterface.OnClickListener() {
+                            public void onClick(DialogInterface dialog, int id) {
+                                dialog.cancel();
+                            }
+                        });
+
+        // create an alert dialog
+        AlertDialog alertD = alertDialogBuilder.create();
+        alertD.show();
 	}
 	
 	public void addCalendarEvent(){

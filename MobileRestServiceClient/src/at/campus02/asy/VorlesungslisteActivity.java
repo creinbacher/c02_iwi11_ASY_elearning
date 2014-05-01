@@ -1,12 +1,14 @@
 package at.campus02.asy;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
 import android.app.Activity;
+import android.app.ListActivity;
 import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.AsyncTask;
@@ -19,6 +21,7 @@ import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
+import android.widget.SimpleAdapter;
 import android.widget.Toast;
 import at.campus02.asy.data.Vorlesungstermin;
 import at.campus02.asy.service.CallRestService;
@@ -30,7 +33,8 @@ public class VorlesungslisteActivity extends Activity {
 
 	//speichert die über REST geladenen Termine
 	private ArrayList<Vorlesungstermin> termine = null;
-
+	private ArrayList<HashMap<String,String>> termineHashMap = null;
+	
 	private ListView vorlesungsListView = null;
 
 	private ProgressDialog progress = null;
@@ -72,14 +76,35 @@ public class VorlesungslisteActivity extends Activity {
 		getMenuInflater().inflate(R.menu.main, menu);
 		return true;
 	}
+	
+	private ArrayList<HashMap<String,String>> getList() {
+		ArrayList<HashMap<String,String>> list = new ArrayList<HashMap<String,String>>();
+
+	    HashMap<String,String> item;
+	    for(int i=0;i<getTermine().size();i++){
+	    	item = new HashMap<String,String>();
+	    	item.put( "line1", getTermine().get(i).getTitel());
+	    	item.put( "line2", getTermine().get(i).getDateString());
+	    	list.add( item );
+	    }
+	    
+	    return list;
+	}
 
 	private void refreshListView() {
-
-		ArrayAdapter<Vorlesungstermin> listAdapter = new ArrayAdapter<Vorlesungstermin>(
-				this, android.R.layout.simple_list_item_1, android.R.id.text1,
+		SimpleAdapter sa = new SimpleAdapter(this, getList(),
+			R.layout.activity_vorlesungsliste_tow_lines ,
+			new String[] { "line1","line2" },
+			new int[] {R.id.line_a, R.id.line_b});
+		   
+		    getVorlesungsListView().setAdapter(sa);
+		
+		
+		/*ArrayAdapter<Vorlesungstermin> listAdapter = new ArrayAdapter<Vorlesungstermin>(
+				this, android.R.layout.two_line_list_item, android.R.id.text1,
 				getTermine());
 
-		getVorlesungsListView().setAdapter(listAdapter);
+		getVorlesungsListView().setAdapter(listAdapter);*/
 		if (exceptionOccured) {
 			Toast.makeText(getApplicationContext(),
 					"Fehler beim Lesen der Daten aufgetreten",
@@ -104,7 +129,7 @@ public class VorlesungslisteActivity extends Activity {
 		}
 		return termine;
 	}
-
+	
 	public ListView getVorlesungsListView() {
 		if (null == vorlesungsListView) {
 			vorlesungsListView = (ListView) findViewById(R.id.vorlesungsListe);

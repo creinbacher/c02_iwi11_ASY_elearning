@@ -66,7 +66,12 @@ import android.util.Log;
 	public Double getDurchschnittlichesRating() {
 		return durchschnittlichesRating;
 	}
-
+	
+	public String getDateString() {
+		return OUT.format(von) + " - "
+				+ OUT.format(bis);
+	}
+	
 	@Override
 	public String toString() {
 		return titel + ":\n" + OUT.format(von) + " - "
