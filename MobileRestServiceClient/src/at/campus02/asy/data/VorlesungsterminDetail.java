@@ -6,7 +6,6 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import android.annotation.SuppressLint;
-import android.util.Log;
 
 public class VorlesungsterminDetail extends Vorlesungstermin {
 
@@ -25,8 +24,6 @@ public class VorlesungsterminDetail extends Vorlesungstermin {
 			this.gesamtSterne = json.getInt("GesamtSterne");
 			this.anzahlVotes = json.getInt("AnzahlVotes");
 			this.details = json.getString("Details");
-
-			Log.d("Vorlesungstermin", this.toString());
 		}
 	}
 	

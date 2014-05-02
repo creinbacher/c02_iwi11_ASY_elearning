@@ -18,10 +18,7 @@
     <string name="button_add">Übernehmen</string>
     <string name="button_cancel">Abbrechen</string>
     <string name="title_activity_dialog">DialogActivity</string>
-    <string name="hello_world">Hello world!</string>
     <string name="zurueck">Zurück</string>
-    <string name="asfsdf">asfdasfd</string>
-    <string name="xcv">xcv</string>
     <string name="notizBearbeitenMenu">Notiz bearbeiten</string>
     <string name="stringBewertung">Bewertung</string>
 

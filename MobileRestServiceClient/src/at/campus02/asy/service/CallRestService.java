@@ -6,16 +6,11 @@ import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
 
-import org.json.JSONArray;
-
 import android.util.Log;
 
 
 /**
  * Central class for communicating with the webservice via JSON
- * 
- * 
- * @author Christopher Reinbacher
  *
  */
 public class CallRestService {
@@ -34,7 +29,6 @@ public class CallRestService {
 		HttpURLConnection urlConnection =null;
 		Log.d(TAG, urlString);
 		try {
-			//http://blog.strikeiron.com/bid/73189/Integrate-a-REST-API-into-Android-Application-in-less-than-15-minutes
 			URL url = new URL(urlString);
 			urlConnection = (HttpURLConnection) url.openConnection();
 			urlConnection.setConnectTimeout(CONNECTION_TIMEOUT);
@@ -44,7 +38,8 @@ public class CallRestService {
 	        int statusCode = urlConnection.getResponseCode();
 	        Log.d(TAG, "statuscode: "+statusCode);
 	        if (statusCode != HttpURLConnection.HTTP_OK) {
-	            // TODO: Handle Errors => in dem Fall eine leere liste zurueckgeben oder eine Exception werfen?
+	            Log.e(TAG, "Fehler beim Serviceaufruf aufgetreten!");
+	            return "";
 	        }
 	         BufferedReader reader = new BufferedReader(new InputStreamReader(urlConnection.getInputStream(), "UTF-8"), 8);
 	         return getResponseText(reader);

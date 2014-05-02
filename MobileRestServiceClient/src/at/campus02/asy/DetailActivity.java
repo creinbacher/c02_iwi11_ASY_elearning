@@ -1,7 +1,5 @@
 package at.campus02.asy;
 
-import java.text.NumberFormat;
-
 import org.json.JSONObject;
 
 import android.app.Activity;
@@ -15,17 +13,14 @@ import android.os.AsyncTask;
 import android.os.Bundle;
 import android.provider.CalendarContract;
 import android.provider.CalendarContract.Events;
+import android.text.TextUtils;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.AdapterView;
-import android.widget.Button;
 import android.widget.EditText;
-import android.widget.ListView;
 import android.widget.RatingBar;
-import android.widget.AdapterView.OnItemClickListener;
 import android.widget.RatingBar.OnRatingBarChangeListener;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -37,25 +32,27 @@ public class DetailActivity extends Activity {
 
 	private VorlesungsterminDetail terminDetails = null;
 	private boolean exceptionOccured = false;
+	private boolean noResponse = false;
 	private ProgressDialog progress = null;
-	public static final String BASE_URL_RATING = "http://win11-asy.azurewebsites.net/Campus02/Like/";
+	public static final String BASE_URL_RATING = VorlesungslisteActivity.BASE_URL
+			+ "/Like/";
 	final Context context = this;
 	public static final String PREFS_NAME = "Vorlesungen";
 	private SharedPreferences notizen;
-	
+
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_detail);
 		initializeButtons();
 		Intent intent = getIntent();
-		//Mit der uebergebenen VorlesungsID gleich mal die Detaildaten lesen
+		// Mit der uebergebenen VorlesungsID gleich mal die Detaildaten lesen
 		Long vorlesungsid = (Long) intent.getExtras().get(
 				Vorlesungstermin.VORLESUNGSTERMINID);
-		new CallDetailService().execute(VorlesungslisteActivity.BASE_URL + "/"
+		new CallDetailService().execute(VorlesungslisteActivity.READ_URL + "/"
 				+ vorlesungsid);
 		// Restore preferences
-	     notizen = getSharedPreferences(PREFS_NAME, 0);
+		notizen = getSharedPreferences(PREFS_NAME, 0);
 	}
 
 	private void refreshData() {
@@ -67,36 +64,44 @@ public class DetailActivity extends Activity {
 			zeit.setText(getTerminDetails().getZeitAsString());
 
 			TextView bewertungString = (TextView) findViewById(R.id.bewertungString);
-			//Wichtig: als string setzen, sonst gibts eine Exception
-			bewertungString.setText(getTerminDetails().getBewertungsString()); 
+			// Wichtig: als string setzen, sonst gibts eine Exception
+			bewertungString.setText(getTerminDetails().getBewertungsString());
 
 			TextView details = (TextView) findViewById(R.id.details);
 			details.setText(getTerminDetails().getDetails());
-			
+
 			TextView notiz = (TextView) findViewById(R.id.notiz);
-			notiz.setText(notizen.getString(getTerminDetails().getVorlesungsterminID().toString(), ""));
-			
+			notiz.setText(notizen.getString(getTerminDetails()
+					.getVorlesungsterminID().toString(), ""));
+
 		}
 		if (exceptionOccured) {
 			Toast.makeText(getApplicationContext(),
-					"Fehler beim lesen der Daten aufgetreten",
+					"Fehler beim lesen der Daten aufgetreten!",
+					Toast.LENGTH_LONG).show();
+		}
+		if (noResponse) {
+			Toast.makeText(getApplicationContext(),
+					"Es wurden keine Daten zum Anzeigen gefunden!",
 					Toast.LENGTH_LONG).show();
 		}
 	}
 
 	private void initializeButtons() {
-		//die bewertungw wird onChange upgedated
-		//TODO: pruefen ob nicht onClick gscheiter waere
+		// die bewertungw wird onChange upgedated
 		RatingBar bewertung = (RatingBar) findViewById(R.id.bewertung);
 		bewertung.setOnRatingBarChangeListener(new OnRatingBarChangeListener() {
 			public void onRatingChanged(RatingBar ratingBar, float rating,
-				boolean fromUser) {
-				//http://win11-asy.azurewebsites.net/Campus02/Like/1?anzahlSterne=4
-				new CallRatingService().execute(BASE_URL_RATING+ getTerminDetails().getVorlesungsterminID()+"?anzahlSterne="+((int) rating),
-						VorlesungslisteActivity.BASE_URL + "/"+ getTerminDetails().getVorlesungsterminID());
+					boolean fromUser) {
+				// http://win11-asy.azurewebsites.net/Campus02/Like/1?anzahlSterne=4
+				new CallRatingService().execute(BASE_URL_RATING
+						+ getTerminDetails().getVorlesungsterminID()
+						+ "?anzahlSterne=" + ((int) rating),
+						VorlesungslisteActivity.READ_URL + "/"
+								+ getTerminDetails().getVorlesungsterminID());
 			}
 		});
-		
+
 	}
 
 	@Override
@@ -109,69 +114,79 @@ public class DetailActivity extends Activity {
 	public boolean onOptionsItemSelected(MenuItem item) {
 		int id = item.getItemId();
 		switch (id) {
-			case R.id.action_calendar:
-				addCalendarEvent();
-				return true;
-			case R.id.notizBearbeitenMenu:
-				addNotiz();
-				return true;
-			case R.id.zurueck:
-				onBackPressed();
-				return true;
+		case R.id.action_calendar:
+			addCalendarEvent();
+			return true;
+		case R.id.notizBearbeitenMenu:
+			addNotiz();
+			return true;
+		case R.id.zurueck:
+			onBackPressed();
+			return true;
 		}
 		return super.onOptionsItemSelected(item);
 	}
-	
+
 	public void addNotiz() {
 		// get layout view
 		LayoutInflater layoutInflater = LayoutInflater.from(context);
-        View promptView = layoutInflater.inflate(R.layout.activity_dialog, null);
-        AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(context);
+		View promptView = layoutInflater
+				.inflate(R.layout.activity_dialog, null);
+		AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(
+				context);
 
-        // set prompts.xml to be the layout file of the alertdialog builder
-        alertDialogBuilder.setView(promptView);
-        final EditText input = (EditText) promptView.findViewById(R.id.notizinput);
-        input.setText(((TextView) findViewById(R.id.notiz)).getText());
+		// set prompts.xml to be the layout file of the alertdialog builder
+		alertDialogBuilder.setView(promptView);
+		final EditText input = (EditText) promptView
+				.findViewById(R.id.notizinput);
+		input.setText(((TextView) findViewById(R.id.notiz)).getText());
 
-        // setup a dialog window
-        alertDialogBuilder
-        		.setTitle(R.string.notizBearbeitenMenu)
-                .setCancelable(false)
-                .setPositiveButton(R.string.button_add, new DialogInterface.OnClickListener() {
-                            public void onClick(DialogInterface dialog, int id) {
-                                // get user input and set it to result
-                    			TextView details = (TextView) findViewById(R.id.notiz);
-                    			details.setText(input.getText());
-                    			SharedPreferences.Editor editor = notizen.edit();
-                    			editor.putString(getTerminDetails().getVorlesungsterminID().toString(), input.getText().toString());
-                    			editor.commit();
-                    			getTerminDetails().setKommentar(input.getText().toString());
-                            }
-                        })
-                .setNegativeButton(R.string.button_cancel,
-                        new DialogInterface.OnClickListener() {
-                            public void onClick(DialogInterface dialog, int id) {
-                                dialog.cancel();
-                            }
-                        });
+		// setup a dialog window
+		alertDialogBuilder
+				.setTitle(R.string.notizBearbeitenMenu)
+				.setCancelable(false)
+				.setPositiveButton(R.string.button_add,
+						new DialogInterface.OnClickListener() {
+							public void onClick(DialogInterface dialog, int id) {
+								// get user input and set it to result
+								TextView details = (TextView) findViewById(R.id.notiz);
+								details.setText(input.getText());
+								SharedPreferences.Editor editor = notizen
+										.edit();
+								editor.putString(getTerminDetails()
+										.getVorlesungsterminID().toString(),
+										input.getText().toString());
+								editor.commit();
+								getTerminDetails().setKommentar(
+										input.getText().toString());
+							}
+						})
+				.setNegativeButton(R.string.button_cancel,
+						new DialogInterface.OnClickListener() {
+							public void onClick(DialogInterface dialog, int id) {
+								dialog.cancel();
+							}
+						});
 
-        // create an alert dialog
-        AlertDialog alertD = alertDialogBuilder.create();
-        alertD.show();
+		// create an alert dialog
+		AlertDialog alertD = alertDialogBuilder.create();
+		alertD.show();
 	}
-	
-	public void addCalendarEvent(){
-		if(null!=getTerminDetails()){	
-			//http://www.vogella.com/tutorials/AndroidCalendar/article.html
+
+	public void addCalendarEvent() {
+		if (null != getTerminDetails()) {
+			// http://www.vogella.com/tutorials/AndroidCalendar/article.html
 			Intent intent = new Intent(Intent.ACTION_INSERT);
 			intent.setData(CalendarContract.Events.CONTENT_URI);
 			intent.setType("vnd.android.cursor.item/event");
 			intent.putExtra(Events.TITLE, getTerminDetails().getTitel());
 			intent.putExtra(Events.EVENT_LOCATION, "Campus02");
 			intent.putExtra(Events.DESCRIPTION, getTerminDetails().getDetails());
-			intent.putExtra(CalendarContract.EXTRA_EVENT_BEGIN_TIME,getTerminDetails().getVon().getTime());
-			intent.putExtra(CalendarContract.EXTRA_EVENT_END_TIME,getTerminDetails().getBis().getTime());
-			startActivity(intent); 
+			intent.putExtra(CalendarContract.EXTRA_EVENT_BEGIN_TIME,
+					getTerminDetails().getVon().getTime());
+			intent.putExtra(CalendarContract.EXTRA_EVENT_END_TIME,
+					getTerminDetails().getBis().getTime());
+			startActivity(intent);
 		}
 	}
 
@@ -204,11 +219,14 @@ public class DetailActivity extends Activity {
 			if (null != params && params.length > 0) {
 				CallRestService crs = new CallRestService();
 				exceptionOccured = false;
+				noResponse = false;
 				try {
-					//hier kommt genau ein Objekt zur�ck, deshalb gleich ein JSONObject und kein JSONArray
-					JSONObject vorlesung = new JSONObject(
-							crs.doReadCall(params[0]));
-					setTerminDetails(new VorlesungsterminDetail(vorlesung));
+					String response = crs.doReadCall(params[0]);
+					if (TextUtils.isEmpty(response)) {
+						noResponse = true;
+						return null; 
+					}
+					setTerminDetails(new VorlesungsterminDetail(new JSONObject(response)));
 
 				} catch (Exception e) {
 					Log.d("CallDetailService",
@@ -231,7 +249,7 @@ public class DetailActivity extends Activity {
 			getProgressDialog(true).show();
 		}
 	}
-	
+
 	private class CallRatingService extends AsyncTask<String, Void, Void> {
 
 		@Override
@@ -239,13 +257,17 @@ public class DetailActivity extends Activity {
 			if (null != params && params.length > 0) {
 				CallRestService crs = new CallRestService();
 				exceptionOccured = false;
+				noResponse = false;
 				try {
-					//zuerst die Daten speichern...
+					// zuerst die Daten speichern...
 					crs.doWriteCall(params[0]);
-					//...dann gleich neu lesen und updaten
-					JSONObject vorlesung = new JSONObject(
-							crs.doReadCall(params[1]));
-					setTerminDetails(new VorlesungsterminDetail(vorlesung));
+					// ...dann gleich neu lesen und updaten
+					String response = crs.doReadCall(params[1]);
+					if (TextUtils.isEmpty(response)) {
+						noResponse = true;
+						return null; 
+					}
+					setTerminDetails(new VorlesungsterminDetail(new JSONObject(response)));
 				} catch (Exception e) {
 					Log.d("CallRatingService",
 							"exception occured: " + e.getMessage());
