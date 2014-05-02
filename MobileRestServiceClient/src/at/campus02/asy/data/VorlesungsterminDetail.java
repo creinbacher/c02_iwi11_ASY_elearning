@@ -68,25 +68,12 @@ public class VorlesungsterminDetail extends Vorlesungstermin {
 	public String getBewertungsString() {
 		if (null != anzahlVotes && null != gesamtSterne) {
 			String output = "(Durchschnitt %,.2f aus %d Stimmen)";
-			return String.format(output,getAvgBewertung(),anzahlVotes);
+			return String.format(output,super.getDurchschnittlichesRating(),anzahlVotes);
 		}
 		
 		return "";
 	}
 	
-	private double getAvgBewertung() {
-		double avg = 0.0;
-		
-		if (null != anzahlVotes && null != gesamtSterne) {
-			
-			if (anzahlVotes > 0) {
-				avg = (double)gesamtSterne / (double)anzahlVotes;
-			}
-		}
-		
-		return avg;
-	}
-
 	public String getDetails() {
 		return details;
 	}

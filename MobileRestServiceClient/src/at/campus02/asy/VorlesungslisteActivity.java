@@ -84,7 +84,7 @@ public class VorlesungslisteActivity extends Activity {
 	    for(int i=0;i<getTermine().size();i++){
 	    	item = new HashMap<String,String>();
 	    	item.put( "line1", getTermine().get(i).getTitel());
-	    	item.put( "line2", getTermine().get(i).getDateString());
+	    	item.put( "line2", getTermine().get(i).getDateString()+String.format("\nDurchschnittliche Bewertung: %,.2f",getTermine().get(i).getDurchschnittlichesRating()));
 	    	list.add( item );
 	    }
 	    
