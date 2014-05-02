@@ -52,7 +52,7 @@ public class DetailActivity extends Activity {
 		new CallDetailService().execute(VorlesungslisteActivity.READ_URL + "/"
 				+ vorlesungsid);
 		// Restore preferences
-		notizen = getSharedPreferences(PREFS_NAME, 0);
+		notizen = getSharedPreferences(PREFS_NAME, Context.MODE_PRIVATE);
 	}
 
 	private void refreshData() {

@@ -7,12 +7,15 @@ import org.json.JSONArray;
 import org.json.JSONObject;
 
 import android.app.Activity;
+import android.app.AlertDialog;
 import android.app.ProgressDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.util.Log;
+import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -130,11 +133,31 @@ public class VorlesungslisteActivity extends Activity {
 	public boolean onOptionsItemSelected(MenuItem item) {
 		int id = item.getItemId();
 		// nur action refresh - settings haben wir keine
-		if (id == R.id.action_refresh) {
-			new CallListService().execute(READ_URL);
-			return true;
+		switch (id) {
+			case R.id.action_refresh:
+				new CallListService().execute(READ_URL);
+				return true;
+			case R.id.action_about:
+				showActionAbout();
+				return true;
 		}
+
 		return super.onOptionsItemSelected(item);
+	}
+	
+	private void showActionAbout() {
+		// get layout view
+		AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(this);
+		alertDialogBuilder.setTitle(R.string.aboutTitle);
+		alertDialogBuilder.setMessage(R.string.aboutMessage);
+		alertDialogBuilder.setPositiveButton(R.string.ok, new DialogInterface.OnClickListener() {
+	           public void onClick(DialogInterface dialog, int id) {
+	               dialog.dismiss();
+	           }
+	    });
+
+		AlertDialog dialog = alertDialogBuilder.create();
+		dialog.show();
 	}
 
 	public ArrayList<Vorlesungstermin> getTermine() {
