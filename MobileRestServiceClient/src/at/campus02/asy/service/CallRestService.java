@@ -15,15 +15,15 @@ import android.util.Log;
  */
 public class CallRestService {
 
-	private static final int CONNECTION_TIMEOUT = 600000;
-	private static final int DATARETRIEVAL_TIMEOUT = 300000;
+	private static final int CONNECTION_TIMEOUT = 60_000;
+	private static final int DATARETRIEVAL_TIMEOUT = 30_000; 
 	private static final String TAG ="CallRestService";
 	
 	/**
 	 * Performs a read call, parses the result and returns an JSONArray
 	 * 
 	 * @param urlString: The REST url to be called
-	 * @return JSONArray containing the response data
+	 * @return String containing the response data
 	 */
 	public String doReadCall(String urlString){
 		HttpURLConnection urlConnection =null;
@@ -41,7 +41,7 @@ public class CallRestService {
 	            Log.e(TAG, "Fehler beim Serviceaufruf aufgetreten!");
 	            return "";
 	        }
-	         BufferedReader reader = new BufferedReader(new InputStreamReader(urlConnection.getInputStream(), "UTF-8"), 8);
+	         BufferedReader reader = new BufferedReader(new InputStreamReader(urlConnection.getInputStream(), "UTF-8"));
 	         return getResponseText(reader);
 		} catch (Exception e) {
 			Log.e(TAG, "Fehler beim Serviceaufruf aufgetreten: "+e.getMessage());

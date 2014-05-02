@@ -11,6 +11,8 @@ import android.app.AlertDialog;
 import android.app.ProgressDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.text.TextUtils;
@@ -19,7 +21,6 @@ import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.ListView;
@@ -71,10 +72,24 @@ public class VorlesungslisteActivity extends Activity {
 					}
 
 				});
-		// gleich beim starten die daten vom service holen
-		new CallListService().execute(READ_URL);
+		executeRead();
+	}
+	
+	private void executeRead(){
+		if(!isConnected()){
+			//TODO: Dem Benutzer einen Dialog anzeigen => "Bitte Verbindung herstellen und Daten über den Menüpunkt 'Refresh' aktualisieren
+			// Außerdem ein Insert auf der Maske (rot => keine verbindung, grün => alles OK)
+		}else{
+			new CallListService().execute(READ_URL);
+		}
 	}
 
+	private boolean isConnected(){
+		ConnectivityManager conMgr = (ConnectivityManager) getSystemService(Activity.CONNECTIVITY_SERVICE);
+		NetworkInfo networkInfo = conMgr.getActiveNetworkInfo();
+		return networkInfo.isConnected();
+	}
+	
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
 		getMenuInflater().inflate(R.menu.main, menu);
@@ -85,10 +100,11 @@ public class VorlesungslisteActivity extends Activity {
 	protected void onRestart() {
 		//damit beim Back-Button gleich die Maske aktualisiert wird
 		super.onRestart();
-		new CallListService().execute(READ_URL);
+		executeRead();
 	}
 
 	private ArrayList<HashMap<String, String>> getList() {
+		//muss als Liste von HashMaps vorliegen, damit der Adapter damit arbeiten kann
 		ArrayList<HashMap<String, String>> list = new ArrayList<HashMap<String, String>>();
 
 		HashMap<String, String> item;
@@ -135,7 +151,7 @@ public class VorlesungslisteActivity extends Activity {
 		// nur action refresh - settings haben wir keine
 		switch (id) {
 			case R.id.action_refresh:
-				new CallListService().execute(READ_URL);
+				executeRead();
 				return true;
 			case R.id.action_about:
 				showActionAbout();
@@ -225,8 +241,10 @@ public class VorlesungslisteActivity extends Activity {
 
 		@Override
 		protected void onPostExecute(Void result) {
+			//aktualisieren der Daten...
 			super.onPostExecute(result);
 			refreshListView();
+			//... und den Dialog ausblenden
 			getProgressDialog().dismiss();
 		}
 

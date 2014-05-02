@@ -88,12 +88,11 @@ public class DetailActivity extends Activity {
 	}
 
 	private void initializeButtons() {
-		// die bewertungw wird onChange upgedated
+		// die Bewertung wird onChange upgedated
 		RatingBar bewertung = (RatingBar) findViewById(R.id.bewertung);
 		bewertung.setOnRatingBarChangeListener(new OnRatingBarChangeListener() {
 			public void onRatingChanged(RatingBar ratingBar, float rating,
 					boolean fromUser) {
-				// http://win11-asy.azurewebsites.net/Campus02/Like/1?anzahlSterne=4
 				new CallRatingService().execute(BASE_URL_RATING
 						+ getTerminDetails().getVorlesungsterminID()
 						+ "?anzahlSterne=" + ((int) rating),
@@ -175,12 +174,11 @@ public class DetailActivity extends Activity {
 
 	public void addCalendarEvent() {
 		if (null != getTerminDetails()) {
-			// http://www.vogella.com/tutorials/AndroidCalendar/article.html
 			Intent intent = new Intent(Intent.ACTION_INSERT);
 			intent.setData(CalendarContract.Events.CONTENT_URI);
 			intent.setType("vnd.android.cursor.item/event");
 			intent.putExtra(Events.TITLE, getTerminDetails().getTitel());
-			intent.putExtra(Events.EVENT_LOCATION, "Campus02");
+			intent.putExtra(Events.EVENT_LOCATION, "FH Campus02");
 			intent.putExtra(Events.DESCRIPTION, getTerminDetails().getDetails());
 			intent.putExtra(CalendarContract.EXTRA_EVENT_BEGIN_TIME,
 					getTerminDetails().getVon().getTime());

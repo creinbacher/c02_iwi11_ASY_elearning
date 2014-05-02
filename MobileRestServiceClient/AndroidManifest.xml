@@ -9,6 +9,7 @@
         android:targetSdkVersion="19" />
 
     <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
 
     <application
         android:allowBackup="true"
@@ -34,6 +35,6 @@
             android:name="at.campus02.asy.DialogActivity"
             android:label="@string/title_activity_dialog" >
         </activity>
-    </application>
+    </application> 
 
 </manifest>
