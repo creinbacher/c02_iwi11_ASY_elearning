@@ -7,7 +7,18 @@
         android:orderInCategory="100"
         android:showAsAction="never"
         android:title="@string/zuKalenderHinzufuegen"/>
-    
-    <item android:id="@+id/notizBearbeitenMenu" android:title="@string/notizBearbeitenMenu"></item><item android:id="@+id/zurueck" android:orderInCategory="102" android:title="@string/zurueck"></item>
+    <item
+        android:id="@+id/notizBearbeitenMenu"
+         android:orderInCategory="101"
+        android:title="@string/notizBearbeitenMenu"/>
+    <item
+        android:id="@+id/action_refresh"
+        android:orderInCategory="102"
+        android:showAsAction="never"
+        android:title="@string/action_refresh"/>
+    <item
+        android:id="@+id/zurueck"
+        android:orderInCategory="103"
+        android:title="@string/zurueck"/>
 
 </menu>

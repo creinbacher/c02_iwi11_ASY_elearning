@@ -46,6 +46,10 @@ public class VorlesungslisteActivity extends BaseActivity {
 					public void onItemClick(AdapterView<?> parent, View view,
 							int position, long id) {
 
+						if(!connected){
+							showNotConnectedAlert();
+							return;
+						}
 						// holen des items an der entsprechenden position...
 						int itemPosition = position;
 						Vorlesungstermin itemValue = getTermine().get(
@@ -70,12 +74,14 @@ public class VorlesungslisteActivity extends BaseActivity {
 		executeRead();
 	}
 
-
+	private void showNotConnectedAlert(){
+		showAlertDialog(this);
+	}
 	
 	private void executeRead() {
 		checkConnectedChanged();
 		if (!connected) {
-			showAlertDialog(this);
+			showNotConnectedAlert();
 		} else {
 			new CallListService().execute(READ_URL);
 		}
