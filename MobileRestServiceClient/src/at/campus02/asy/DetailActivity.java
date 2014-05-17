@@ -110,6 +110,7 @@ public class DetailActivity extends BaseActivity {
 					boolean fromUser) {
 				if(!connected){
 					ratingBar.setRating(0);
+<<<<<<< HEAD
 					showOfflineDialog(context); 
 					return;
 				}
@@ -119,6 +120,17 @@ public class DetailActivity extends BaseActivity {
 							+ "?anzahlSterne=" + ((int) rating),
 							VorlesungslisteActivity.READ_URL + "/"
 									+ getTerminDetails().getVorlesungsterminID());
+=======
+					showNotConnectedAlert();
+					return;
+				}
+				
+				new CallRatingService().execute(BASE_URL_RATING
+						+ getTerminDetails().getVorlesungsterminID()
+						+ "?anzahlSterne=" + ((int) rating),
+						VorlesungslisteActivity.READ_URL + "/"
+								+ getTerminDetails().getVorlesungsterminID());
+>>>>>>> branch 'master' of https://github.com/creinbacher/c02_iwi11_ASY_elearning.git
 			}
 		});
 
@@ -143,9 +155,12 @@ public class DetailActivity extends BaseActivity {
 		case R.id.action_refresh:
 			executeRead();
 			return true;
+<<<<<<< HEAD
 		case R.id.action_about_detail:
 			showActionAbout();
 			return true;
+=======
+>>>>>>> branch 'master' of https://github.com/creinbacher/c02_iwi11_ASY_elearning.git
 		case R.id.zurueck:
 			onBackPressed();
 			return true;
