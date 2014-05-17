@@ -6,46 +6,33 @@ import java.util.HashMap;
 import org.json.JSONArray;
 import org.json.JSONObject;
 
-import android.app.Activity;
 import android.app.AlertDialog;
-import android.app.ProgressDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
-import android.net.ConnectivityManager;
-import android.net.NetworkInfo;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.util.Log;
-import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
-import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.SimpleAdapter;
 import android.widget.Toast;
 import at.campus02.asy.data.Vorlesungstermin;
 import at.campus02.asy.service.CallRestService;
 
-public class VorlesungslisteActivity extends Activity {
+public class VorlesungslisteActivity extends BaseActivity {
 
-	public static final String BASE_URL = "http://asy-gruppe3.azurewebsites.net/Campus02";
 	public static final String READ_URL = BASE_URL + "/asy";
 
 	// speichert die ueber REST geladenen Termine
 	private ArrayList<Vorlesungstermin> termine = null;
 
 	private ListView vorlesungsListView = null;
-	private ImageView statusImage = null;
-	private boolean isOnline = false;
-	
-	private ProgressDialog progress = null;
 
-	private boolean exceptionOccured = false;
-	private boolean noResponse = false;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -75,24 +62,25 @@ public class VorlesungslisteActivity extends Activity {
 					}
 
 				});
+		//gleich nach dem Starten pr�fen ob wir eine Verbindung haben, damit wir das Icon korrekt setzen
+		checkConnectedChanged();
+		changeStatusIcon(connected);
+		handler.removeCallbacks(updateState);
+		handler.post(updateState);
 		executeRead();
 	}
+
+
 	
-	private void executeRead(){
-		if(!isConnected()){
-			//TODO: Dem Benutzer einen Dialog anzeigen => "Bitte Verbindung herstellen und Daten �ber den Men�punkt 'Refresh' aktualisieren
-			// Au�erdem ein Insert auf der Maske (rot => keine verbindung, gr�n => alles OK)
-		}else{
+	private void executeRead() {
+		checkConnectedChanged();
+		if (!connected) {
+			showAlertDialog(this);
+		} else {
 			new CallListService().execute(READ_URL);
 		}
 	}
 
-	private boolean isConnected(){
-		ConnectivityManager conMgr = (ConnectivityManager) getSystemService(Activity.CONNECTIVITY_SERVICE);
-		NetworkInfo networkInfo = conMgr.getActiveNetworkInfo();
-		return networkInfo.isConnected();
-	}
-	
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
 		getMenuInflater().inflate(R.menu.main, menu);
@@ -101,13 +89,14 @@ public class VorlesungslisteActivity extends Activity {
 
 	@Override
 	protected void onRestart() {
-		//damit beim Back-Button gleich die Maske aktualisiert wird
+		// damit beim Back-Button gleich die Maske aktualisiert wird
 		super.onRestart();
 		executeRead();
 	}
 
 	private ArrayList<HashMap<String, String>> getList() {
-		//muss als Liste von HashMaps vorliegen, damit der Adapter damit arbeiten kann
+		// muss als Liste von HashMaps vorliegen, damit der Adapter damit
+		// arbeiten kann
 		ArrayList<HashMap<String, String>> list = new ArrayList<HashMap<String, String>>();
 
 		HashMap<String, String> item;
@@ -134,9 +123,8 @@ public class VorlesungslisteActivity extends Activity {
 						R.id.line_b });
 
 		getVorlesungsListView().setAdapter(sa);
-		changeStatusIcon(true);
-		
-		//Anzeigen von Meldungen im Fehlerfall
+
+		// Anzeigen von Meldungen im Fehlerfall
 		if (exceptionOccured) {
 			Toast.makeText(getApplicationContext(),
 					"Fehler beim Lesen der Daten aufgetreten!",
@@ -154,27 +142,28 @@ public class VorlesungslisteActivity extends Activity {
 		int id = item.getItemId();
 		// nur action refresh - settings haben wir keine
 		switch (id) {
-			case R.id.action_refresh:
-				executeRead();
-				return true;
-			case R.id.action_about:
-				showActionAbout();
-				return true;
+		case R.id.action_refresh:
+			executeRead();
+			return true;
+		case R.id.action_about:
+			showActionAbout();
+			return true;
 		}
 
 		return super.onOptionsItemSelected(item);
 	}
-	
+
 	private void showActionAbout() {
 		// get layout view
 		AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(this);
 		alertDialogBuilder.setTitle(R.string.aboutTitle);
 		alertDialogBuilder.setMessage(R.string.aboutMessage);
-		alertDialogBuilder.setPositiveButton(R.string.ok, new DialogInterface.OnClickListener() {
-	           public void onClick(DialogInterface dialog, int id) {
-	               dialog.dismiss();
-	           }
-	    });
+		alertDialogBuilder.setPositiveButton(R.string.ok,
+				new DialogInterface.OnClickListener() {
+					public void onClick(DialogInterface dialog, int id) {
+						dialog.dismiss();
+					}
+				});
 
 		AlertDialog dialog = alertDialogBuilder.create();
 		dialog.show();
@@ -194,34 +183,6 @@ public class VorlesungslisteActivity extends Activity {
 		return vorlesungsListView;
 	}
 	
-	public void changeStatusIcon(boolean setOnline) {
-		if (null == statusImage) {
-			statusImage = (ImageView) findViewById(R.id.imageStatus);
-		}
-	
-		if (!isOnline && setOnline) {
-			// online setzen
-			statusImage.setImageResource(android.R.drawable.presence_online);
-			
-			// TODO: char sequence?ß
-			//statusImage.setContentDescription(R.string.status_online);
-		} else if (isOnline && !setOnline) {
-			// offline setzen
-			statusImage.setImageResource(android.R.drawable.presence_offline);
-			
-			// TODO: char sequence?ß
-			//statusImage.setContentDescription((string) R.string.status_offline);
-		}
-	}
-
-	public ProgressDialog getProgressDialog() {
-		if (null == progress) {
-			progress = new ProgressDialog(this);
-			progress.setTitle("Laden");
-			progress.setMessage("Daten werden abgerufen...");
-		}
-		return progress;
-	}
 
 	/**
 	 * 
@@ -265,18 +226,20 @@ public class VorlesungslisteActivity extends Activity {
 
 		@Override
 		protected void onPostExecute(Void result) {
-			//aktualisieren der Daten...
+			// aktualisieren der Daten...
 			super.onPostExecute(result);
 			refreshListView();
-			//... und den Dialog ausblenden
-			getProgressDialog().dismiss();
+			// ... und den Dialog ausblenden
+			getProgressDialog(true).dismiss();
 		}
 
 		@Override
 		protected void onPreExecute() {
 			// Benutzer ueber ServiceCall informieren
-			getProgressDialog().show();
+			getProgressDialog(true).show();
 		}
 	}
+
+
 
 }

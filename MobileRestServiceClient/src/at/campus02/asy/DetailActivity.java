@@ -2,9 +2,7 @@ package at.campus02.asy;
 
 import org.json.JSONObject;
 
-import android.app.Activity;
 import android.app.AlertDialog;
-import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -28,13 +26,10 @@ import at.campus02.asy.data.Vorlesungstermin;
 import at.campus02.asy.data.VorlesungsterminDetail;
 import at.campus02.asy.service.CallRestService;
 
-public class DetailActivity extends Activity {
+public class DetailActivity extends BaseActivity {
 
 	private VorlesungsterminDetail terminDetails = null;
-	private boolean exceptionOccured = false;
-	private boolean noResponse = false;
-	private ProgressDialog progress = null;
-	public static final String BASE_URL_RATING = VorlesungslisteActivity.BASE_URL
+	public static final String BASE_URL_RATING = BASE_URL
 			+ "/Like/";
 	final Context context = this;
 	public static final String PREFS_NAME = "Vorlesungen";
@@ -188,19 +183,7 @@ public class DetailActivity extends Activity {
 		}
 	}
 
-	public ProgressDialog getProgressDialog(boolean laden) {
-		if (null == progress) {
-			progress = new ProgressDialog(this);
-		}
-		if (laden) {
-			progress.setTitle("Laden");
-			progress.setMessage("Daten werden abgerufen...");
-		} else {
-			progress.setTitle("Speichern");
-			progress.setMessage("Bewertung wird gespeichert...");
-		}
-		return progress;
-	}
+
 
 	public VorlesungsterminDetail getTerminDetails() {
 		return terminDetails;
@@ -267,7 +250,7 @@ public class DetailActivity extends Activity {
 					}
 					setTerminDetails(new VorlesungsterminDetail(new JSONObject(response)));
 				} catch (Exception e) {
-					Log.d("CallRatingService",
+					Log.d("CallRatingService", 
 							"exception occured: " + e.getMessage());
 					exceptionOccured = true;
 				}
