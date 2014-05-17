@@ -29,12 +29,11 @@ import at.campus02.asy.service.CallRestService;
 public class DetailActivity extends BaseActivity {
 
 	private VorlesungsterminDetail terminDetails = null;
-	public static final String BASE_URL_RATING = BASE_URL
-			+ "/Like/";
+	public static final String BASE_URL_RATING = BASE_URL + "/Like/";
 	final Context context = this;
 	public static final String PREFS_NAME = "Vorlesungen";
 	private SharedPreferences notizen;
-	Long vorlesungsID =null;
+	Long vorlesungsID = null;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -46,10 +45,10 @@ public class DetailActivity extends BaseActivity {
 		// Mit der uebergebenen VorlesungsID gleich mal die Detaildaten lesen
 		vorlesungsID = (Long) intent.getExtras().get(
 				Vorlesungstermin.VORLESUNGSTERMINID);
-		
+
 		executeRead();
 		changeStatusIcon(connected);
-		
+
 		// Restore preferences
 		notizen = getSharedPreferences(PREFS_NAME, Context.MODE_PRIVATE);
 		handler.removeCallbacks(updateState);
@@ -61,11 +60,11 @@ public class DetailActivity extends BaseActivity {
 		if (!connected) {
 			showNotConnectedAlert();
 		} else {
-			new CallDetailService().execute(VorlesungslisteActivity.READ_URL + "/"
-					+ vorlesungsID);
+			new CallDetailService().execute(VorlesungslisteActivity.READ_URL
+					+ "/" + vorlesungsID);
 		}
 	}
-	
+
 	private void refreshData() {
 		if (null != getTerminDetails()) {
 			TextView titel = (TextView) findViewById(R.id.titel);
@@ -98,39 +97,32 @@ public class DetailActivity extends BaseActivity {
 		}
 	}
 
-	private void showNotConnectedAlert(){
+	private void showNotConnectedAlert() {
 		showAlertDialog(this);
 	}
-	
+
 	private void initializeButtons() {
 		// die Bewertung wird onChange upgedated
 		RatingBar bewertung = (RatingBar) findViewById(R.id.bewertung);
 		bewertung.setOnRatingBarChangeListener(new OnRatingBarChangeListener() {
 			public void onRatingChanged(RatingBar ratingBar, float rating,
 					boolean fromUser) {
-				if(!connected){
-					ratingBar.setRating(0);
-<<<<<<< HEAD
-					showOfflineDialog(context); 
+				if (!connected) {
+					if (rating > 0) {
+						ratingBar.setRating(0);
+						// return > set to 0 causes recall of this function
+						return;
+					}
+					
+					showOfflineDialog(context);
 					return;
 				}
-				
-					new CallRatingService().execute(BASE_URL_RATING
-							+ getTerminDetails().getVorlesungsterminID()
-							+ "?anzahlSterne=" + ((int) rating),
-							VorlesungslisteActivity.READ_URL + "/"
-									+ getTerminDetails().getVorlesungsterminID());
-=======
-					showNotConnectedAlert();
-					return;
-				}
-				
+
 				new CallRatingService().execute(BASE_URL_RATING
 						+ getTerminDetails().getVorlesungsterminID()
 						+ "?anzahlSterne=" + ((int) rating),
 						VorlesungslisteActivity.READ_URL + "/"
 								+ getTerminDetails().getVorlesungsterminID());
->>>>>>> branch 'master' of https://github.com/creinbacher/c02_iwi11_ASY_elearning.git
 			}
 		});
 
@@ -155,12 +147,9 @@ public class DetailActivity extends BaseActivity {
 		case R.id.action_refresh:
 			executeRead();
 			return true;
-<<<<<<< HEAD
 		case R.id.action_about_detail:
 			showActionAbout();
 			return true;
-=======
->>>>>>> branch 'master' of https://github.com/creinbacher/c02_iwi11_ASY_elearning.git
 		case R.id.zurueck:
 			onBackPressed();
 			return true;
@@ -230,8 +219,6 @@ public class DetailActivity extends BaseActivity {
 		}
 	}
 
-
-
 	public VorlesungsterminDetail getTerminDetails() {
 		return terminDetails;
 	}
@@ -252,9 +239,10 @@ public class DetailActivity extends BaseActivity {
 					String response = crs.doReadCall(params[0]);
 					if (TextUtils.isEmpty(response)) {
 						noResponse = true;
-						return null; 
+						return null;
 					}
-					setTerminDetails(new VorlesungsterminDetail(new JSONObject(response)));
+					setTerminDetails(new VorlesungsterminDetail(new JSONObject(
+							response)));
 
 				} catch (Exception e) {
 					Log.d("CallDetailService",
@@ -293,11 +281,12 @@ public class DetailActivity extends BaseActivity {
 					String response = crs.doReadCall(params[1]);
 					if (TextUtils.isEmpty(response)) {
 						noResponse = true;
-						return null; 
+						return null;
 					}
-					setTerminDetails(new VorlesungsterminDetail(new JSONObject(response)));
+					setTerminDetails(new VorlesungsterminDetail(new JSONObject(
+							response)));
 				} catch (Exception e) {
-					Log.d("CallRatingService", 
+					Log.d("CallRatingService",
 							"exception occured: " + e.getMessage());
 					exceptionOccured = true;
 				}

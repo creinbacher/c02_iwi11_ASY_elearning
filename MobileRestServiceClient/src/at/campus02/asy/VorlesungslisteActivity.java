@@ -7,6 +7,7 @@ import org.json.JSONArray;
 import org.json.JSONObject;
 
 import android.app.AlertDialog;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.AsyncTask;
@@ -32,6 +33,7 @@ public class VorlesungslisteActivity extends BaseActivity {
 	private ArrayList<Vorlesungstermin> termine = null;
 
 	private ListView vorlesungsListView = null;
+	private Context context = this;
 
 
 	@Override
@@ -47,7 +49,7 @@ public class VorlesungslisteActivity extends BaseActivity {
 							int position, long id) {
 
 						if(!connected){
-							showNotConnectedAlert();
+							showOfflineDialog(context);
 							return;
 						}
 						// holen des items an der entsprechenden position...
