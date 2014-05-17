@@ -30,5 +30,6 @@
     <string name="status_online">Online</string>
     <string name="offlineMessage">Es konnte keine Verbindung zum Internet hergestellt werden. Bitte stellen Sie eine Verbindung zum Internet her und laden Sie die Daten über den Menüpunkt Refresh erneut.</string>
 	<string name="offlineTitle">Fehler aufgetreten!</string>
+	<string name="offlineMessageFunctionNotPossible">Diese Funktion ist nicht verfügbar, da Sie keine Verbindung mit dem Internet haben. Stellen Sie eine Verbindung mit dem Internet her und versuchen Sie es erneut!</string>
     
 </resources>

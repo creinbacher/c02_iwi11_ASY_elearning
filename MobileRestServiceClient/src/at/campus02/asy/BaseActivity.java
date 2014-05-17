@@ -63,9 +63,21 @@ public abstract class BaseActivity extends Activity {
 	};
 	
 	protected void showAlertDialog(Context context) {
+		showMessageDialog(context, R.string.offlineTitle, R.string.offlineMessage);
+	}
+	
+	protected void showOfflineDialog(Context context) {
+		showMessageDialog(context, R.string.offlineTitle, R.string.offlineMessageFunctionNotPossible);
+	}
+	
+	protected void showActionAbout() {
+		showMessageDialog(this, R.string.aboutTitle, R.string.aboutMessage);
+	}
+	
+	protected void showMessageDialog(Context context, int title, int message) {
 		AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(this);
-		alertDialogBuilder.setTitle(R.string.offlineTitle);
-		alertDialogBuilder.setMessage(R.string.offlineMessage);
+		alertDialogBuilder.setTitle(title);
+		alertDialogBuilder.setMessage(message);
 		alertDialogBuilder.setPositiveButton(R.string.ok,
 				new DialogInterface.OnClickListener() {
 					public void onClick(DialogInterface dialog, int id) {

@@ -46,6 +46,10 @@ public class VorlesungslisteActivity extends BaseActivity {
 					public void onItemClick(AdapterView<?> parent, View view,
 							int position, long id) {
 
+						if(!connected){
+							showNotConnectedAlert();
+							return;
+						}
 						// holen des items an der entsprechenden position...
 						int itemPosition = position;
 						Vorlesungstermin itemValue = getTermine().get(
@@ -62,7 +66,7 @@ public class VorlesungslisteActivity extends BaseActivity {
 					}
 
 				});
-		//gleich nach dem Starten prüfen ob wir eine Verbindung haben, damit wir das Icon korrekt setzen
+		//gleich nach dem Starten prï¿½fen ob wir eine Verbindung haben, damit wir das Icon korrekt setzen
 		checkConnectedChanged();
 		changeStatusIcon(connected);
 		handler.removeCallbacks(updateState);
@@ -70,12 +74,14 @@ public class VorlesungslisteActivity extends BaseActivity {
 		executeRead();
 	}
 
-
+	private void showNotConnectedAlert(){
+		showAlertDialog(this);
+	}
 	
 	private void executeRead() {
 		checkConnectedChanged();
 		if (!connected) {
-			showAlertDialog(this);
+			showNotConnectedAlert();
 		} else {
 			new CallListService().execute(READ_URL);
 		}
@@ -151,22 +157,6 @@ public class VorlesungslisteActivity extends BaseActivity {
 		}
 
 		return super.onOptionsItemSelected(item);
-	}
-
-	private void showActionAbout() {
-		// get layout view
-		AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(this);
-		alertDialogBuilder.setTitle(R.string.aboutTitle);
-		alertDialogBuilder.setMessage(R.string.aboutMessage);
-		alertDialogBuilder.setPositiveButton(R.string.ok,
-				new DialogInterface.OnClickListener() {
-					public void onClick(DialogInterface dialog, int id) {
-						dialog.dismiss();
-					}
-				});
-
-		AlertDialog dialog = alertDialogBuilder.create();
-		dialog.show();
 	}
 
 	public ArrayList<Vorlesungstermin> getTermine() {
