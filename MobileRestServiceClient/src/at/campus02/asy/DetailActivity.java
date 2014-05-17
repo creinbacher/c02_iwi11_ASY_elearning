@@ -34,6 +34,7 @@ public class DetailActivity extends BaseActivity {
 	final Context context = this;
 	public static final String PREFS_NAME = "Vorlesungen";
 	private SharedPreferences notizen;
+	Long vorlesungsID =null;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -41,20 +42,30 @@ public class DetailActivity extends BaseActivity {
 		setContentView(R.layout.activity_detail);
 		initializeButtons();
 		Intent intent = getIntent();
+
 		// Mit der uebergebenen VorlesungsID gleich mal die Detaildaten lesen
-		Long vorlesungsid = (Long) intent.getExtras().get(
+		vorlesungsID = (Long) intent.getExtras().get(
 				Vorlesungstermin.VORLESUNGSTERMINID);
-		new CallDetailService().execute(VorlesungslisteActivity.READ_URL + "/"
-				+ vorlesungsid);
+		
+		executeRead();
+		changeStatusIcon(connected);
+		
 		// Restore preferences
 		notizen = getSharedPreferences(PREFS_NAME, Context.MODE_PRIVATE);
-		
-		checkConnectedChanged();
-		changeStatusIcon(connected);
 		handler.removeCallbacks(updateState);
 		handler.post(updateState);
 	}
 
+	private void executeRead() {
+		checkConnectedChanged();
+		if (!connected) {
+			showNotConnectedAlert();
+		} else {
+			new CallDetailService().execute(VorlesungslisteActivity.READ_URL + "/"
+					+ vorlesungsID);
+		}
+	}
+	
 	private void refreshData() {
 		if (null != getTerminDetails()) {
 			TextView titel = (TextView) findViewById(R.id.titel);
@@ -87,17 +98,27 @@ public class DetailActivity extends BaseActivity {
 		}
 	}
 
+	private void showNotConnectedAlert(){
+		showAlertDialog(this);
+	}
+	
 	private void initializeButtons() {
 		// die Bewertung wird onChange upgedated
 		RatingBar bewertung = (RatingBar) findViewById(R.id.bewertung);
 		bewertung.setOnRatingBarChangeListener(new OnRatingBarChangeListener() {
 			public void onRatingChanged(RatingBar ratingBar, float rating,
 					boolean fromUser) {
-				new CallRatingService().execute(BASE_URL_RATING
-						+ getTerminDetails().getVorlesungsterminID()
-						+ "?anzahlSterne=" + ((int) rating),
-						VorlesungslisteActivity.READ_URL + "/"
-								+ getTerminDetails().getVorlesungsterminID());
+				if(!connected){
+					ratingBar.setRating(0);
+					showOfflineDialog(context); 
+					return;
+				}
+				
+					new CallRatingService().execute(BASE_URL_RATING
+							+ getTerminDetails().getVorlesungsterminID()
+							+ "?anzahlSterne=" + ((int) rating),
+							VorlesungslisteActivity.READ_URL + "/"
+									+ getTerminDetails().getVorlesungsterminID());
 			}
 		});
 
@@ -118,6 +139,12 @@ public class DetailActivity extends BaseActivity {
 			return true;
 		case R.id.notizBearbeitenMenu:
 			addNotiz();
+			return true;
+		case R.id.action_refresh:
+			executeRead();
+			return true;
+		case R.id.action_about_detail:
+			showActionAbout();
 			return true;
 		case R.id.zurueck:
 			onBackPressed();
