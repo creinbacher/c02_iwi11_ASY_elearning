@@ -48,6 +48,11 @@ public class DetailActivity extends BaseActivity {
 				+ vorlesungsid);
 		// Restore preferences
 		notizen = getSharedPreferences(PREFS_NAME, Context.MODE_PRIVATE);
+		
+		checkConnectedChanged();
+		changeStatusIcon(connected);
+		handler.removeCallbacks(updateState);
+		handler.post(updateState);
 	}
 
 	private void refreshData() {

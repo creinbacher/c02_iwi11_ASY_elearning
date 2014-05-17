@@ -22,14 +22,17 @@ public abstract class BaseActivity extends Activity {
 	protected Handler handler = new Handler();
 	private ImageView statusImage = null;
 	
-	protected boolean checkConnectedChanged(){
+	protected boolean checkConnectedChanged() {
 		ConnectivityManager conMgr = (ConnectivityManager) getSystemService(Activity.CONNECTIVITY_SERVICE);
 		NetworkInfo networkInfo = conMgr.getActiveNetworkInfo();
-		if((networkInfo.isConnected() && connected)||(!networkInfo.isConnected() && !connected)){
-			//nothing changed 
+		boolean networkConnected = null != networkInfo
+				&& networkInfo.isConnected();
+		if ((networkConnected && connected)
+				|| (!networkConnected && !connected)) {
+			// nothing changed
 			return false;
-		}else{
-			connected = networkInfo.isConnected();
+		} else {
+			connected = networkConnected;
 			return true;
 		}
 	}
@@ -52,7 +55,7 @@ public abstract class BaseActivity extends Activity {
 		@Override
 		public void run() {
 			if (checkConnectedChanged()) {
-				// wenn sich nix geändert hat, brauchen wir auch nix updaten
+				// wenn sich nix geï¿½ndert hat, brauchen wir auch nix updaten
 				changeStatusIcon(connected);
 			}
 			handler.postDelayed(this, 1000);
@@ -60,15 +63,18 @@ public abstract class BaseActivity extends Activity {
 	};
 	
 	protected void showAlertDialog(Context context) {
-		final AlertDialog alertDialog = new AlertDialog.Builder(context).create();
-		alertDialog.setTitle("Fehler aufgetreten!");
-		alertDialog.setMessage("Es konnte keine Verbindung zum Internet hergestellt werden! \nBitte stellen Sie eine Verbindung zum Internet her und laden Sie die Daten über den Menüpunkt Refresh erneut.");
-		alertDialog.setButton(DialogInterface.BUTTON_NEUTRAL,"OK", new DialogInterface.OnClickListener() {
-			   public void onClick(DialogInterface dialog, int which) {
-				   alertDialog.dismiss();
-			   }
-			});
-			alertDialog.show();
+		AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(this);
+		alertDialogBuilder.setTitle(R.string.offlineTitle);
+		alertDialogBuilder.setMessage(R.string.offlineMessage);
+		alertDialogBuilder.setPositiveButton(R.string.ok,
+				new DialogInterface.OnClickListener() {
+					public void onClick(DialogInterface dialog, int id) {
+						dialog.dismiss();
+					}
+				});
+
+		AlertDialog dialog = alertDialogBuilder.create();
+		dialog.show();
 	}
 	
 	protected void changeStatusIcon(boolean setOnline) {

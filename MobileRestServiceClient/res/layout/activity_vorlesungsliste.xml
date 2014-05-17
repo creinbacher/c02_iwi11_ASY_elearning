@@ -4,44 +4,7 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     tools:context="at.campus02.asy.VorlesungslisteActivity" >
-
-    <TableLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:background="#222222" >
-
-        <TableRow
-            android:id="@+id/tableRow1"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="right"
-            android:layout_marginBottom="3dp"
-            android:layout_marginRight="@dimen/outer_margin"
-            android:gravity="right" >
-            
-            <TextView
-                android:id="@+id/textStatus"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="right"
-                android:text="@string/status"
-                android:textAppearance="?android:attr/textAppearanceSmall"
-                android:textColor="#FFFFFF" />
-
-            <ImageView
-                android:id="@+id/imageStatus"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="right"
-                android:contentDescription="@string/status_offline"
-                android:src="@android:drawable/presence_offline" />
-        </TableRow>
-
-    </TableLayout>
-
-        
-
-            
+	<include layout="@layout/status_bar"/>	
  
          <ListView
              android:id="@+id/vorlesungsListe"

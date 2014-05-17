@@ -28,5 +28,7 @@
     <string name="status">Online-Status:</string>
     <string name="status_offline">Offline</string>
     <string name="status_online">Online</string>
-
+    <string name="offlineMessage">Es konnte keine Verbindung zum Internet hergestellt werden. Bitte stellen Sie eine Verbindung zum Internet her und laden Sie die Daten über den Menüpunkt Refresh erneut.</string>
+	<string name="offlineTitle">Fehler aufgetreten!</string>
+    
 </resources>
