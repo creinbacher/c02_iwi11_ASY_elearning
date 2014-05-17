@@ -77,8 +77,8 @@ public class VorlesungslisteActivity extends Activity {
 	
 	private void executeRead(){
 		if(!isConnected()){
-			//TODO: Dem Benutzer einen Dialog anzeigen => "Bitte Verbindung herstellen und Daten über den Menüpunkt 'Refresh' aktualisieren
-			// Außerdem ein Insert auf der Maske (rot => keine verbindung, grün => alles OK)
+			//TODO: Dem Benutzer einen Dialog anzeigen => "Bitte Verbindung herstellen und Daten ï¿½ber den Menï¿½punkt 'Refresh' aktualisieren
+			// Auï¿½erdem ein Insert auf der Maske (rot => keine verbindung, grï¿½n => alles OK)
 		}else{
 			new CallListService().execute(READ_URL);
 		}
@@ -126,7 +126,7 @@ public class VorlesungslisteActivity extends Activity {
 
 	private void refreshListView() {
 		SimpleAdapter sa = new SimpleAdapter(this, getList(),
-				R.layout.activity_vorlesungsliste_tow_lines, new String[] {
+				R.layout.activity_vorlesungsliste_two_lines, new String[] {
 						"line1", "line2" }, new int[] { R.id.line_a,
 						R.id.line_b });
 
