@@ -23,6 +23,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
+import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.SimpleAdapter;
 import android.widget.Toast;
@@ -38,7 +39,9 @@ public class VorlesungslisteActivity extends Activity {
 	private ArrayList<Vorlesungstermin> termine = null;
 
 	private ListView vorlesungsListView = null;
-
+	private ImageView statusImage = null;
+	private boolean isOnline = false;
+	
 	private ProgressDialog progress = null;
 
 	private boolean exceptionOccured = false;
@@ -131,7 +134,8 @@ public class VorlesungslisteActivity extends Activity {
 						R.id.line_b });
 
 		getVorlesungsListView().setAdapter(sa);
-
+		changeStatusIcon(true);
+		
 		//Anzeigen von Meldungen im Fehlerfall
 		if (exceptionOccured) {
 			Toast.makeText(getApplicationContext(),
@@ -188,6 +192,26 @@ public class VorlesungslisteActivity extends Activity {
 			vorlesungsListView = (ListView) findViewById(R.id.vorlesungsListe);
 		}
 		return vorlesungsListView;
+	}
+	
+	public void changeStatusIcon(boolean setOnline) {
+		if (null == statusImage) {
+			statusImage = (ImageView) findViewById(R.id.imageStatus);
+		}
+	
+		if (!isOnline && setOnline) {
+			// online setzen
+			statusImage.setImageResource(android.R.drawable.presence_online);
+			
+			// TODO: char sequence?ß
+			//statusImage.setContentDescription(R.string.status_online);
+		} else if (isOnline && !setOnline) {
+			// offline setzen
+			statusImage.setImageResource(android.R.drawable.presence_offline);
+			
+			// TODO: char sequence?ß
+			//statusImage.setContentDescription((string) R.string.status_offline);
+		}
 	}
 
 	public ProgressDialog getProgressDialog() {

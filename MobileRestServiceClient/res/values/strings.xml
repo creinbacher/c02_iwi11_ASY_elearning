@@ -23,7 +23,10 @@
     <string name="stringBewertung">Bewertung</string>
     <string name="about">About</string>
     <string name="aboutTitle">About</string>
-    <string name="aboutMessage">(c) 2014 by\nMichael Mauthner\nLukas Pendl\nChristopher Reinbacher</string>
+    <string name="aboutMessage">&#169; 2014 by\nMichael Mauthner\nLukas Pendl\nChristopher Reinbacher</string>
     <string name="ok">OK</string>
+    <string name="status">Online-Status:</string>
+    <string name="status_offline">Offline</string>
+    <string name="status_online">Online</string>
 
 </resources>

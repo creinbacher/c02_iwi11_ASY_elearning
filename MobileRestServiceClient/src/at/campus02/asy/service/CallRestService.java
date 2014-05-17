@@ -15,8 +15,8 @@ import android.util.Log;
  */
 public class CallRestService {
 
-	private static final int CONNECTION_TIMEOUT = 60_000;
-	private static final int DATARETRIEVAL_TIMEOUT = 30_000; 
+	private static final int CONNECTION_TIMEOUT = 60000;
+	private static final int DATARETRIEVAL_TIMEOUT = 30000; 
 	private static final String TAG ="CallRestService";
 	
 	/**
