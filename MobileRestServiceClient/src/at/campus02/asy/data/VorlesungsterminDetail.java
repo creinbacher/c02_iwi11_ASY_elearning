@@ -11,13 +11,20 @@ public class VorlesungsterminDetail extends Vorlesungstermin {
 
 	private Integer gesamtSterne = null;
 	private Integer anzahlVotes = null;
-	private String details=null;
-	private String kommentar=null;
-	
+	private String details = null;
+	private String kommentar = null;
+
 	@SuppressLint("SimpleDateFormat")
-	protected static final SimpleDateFormat OUT = new SimpleDateFormat(OUTPUTFORMAT);
-	
-	
+	protected static final SimpleDateFormat OUT = new SimpleDateFormat(
+			OUTPUTFORMAT);
+
+	/**
+	 * Erstellt unter Zuhilfenahme des Parent-Konstrukturs ein
+	 * VorlesungsterminDetail aus einem JSON Objekt
+	 * 
+	 * @param json
+	 * @throws JSONException
+	 */
 	public VorlesungsterminDetail(JSONObject json) throws JSONException {
 		super(json);
 		if (null != json) {
@@ -26,11 +33,10 @@ public class VorlesungsterminDetail extends Vorlesungstermin {
 			this.details = json.getString("Details");
 		}
 	}
-	
+
 	public String getZeitAsString() {
 		return super.getDateString();
 	}
-	
 
 	public String getKommentar() {
 		return kommentar;
@@ -43,9 +49,9 @@ public class VorlesungsterminDetail extends Vorlesungstermin {
 	public Integer getGesamtSterne() {
 		return gesamtSterne;
 	}
-	
+
 	public String getGesamtSterneAsString() {
-		if(null!=gesamtSterne){
+		if (null != gesamtSterne) {
 			return gesamtSterne.toString();
 		}
 		return "";
@@ -54,33 +60,33 @@ public class VorlesungsterminDetail extends Vorlesungstermin {
 	public Integer getAnzahlVotes() {
 		return anzahlVotes;
 	}
-	
+
 	public String getAnzahlVotesAsString() {
-		if(null!=anzahlVotes){
+		if (null != anzahlVotes) {
 			return anzahlVotes.toString();
 		}
 		return "";
 	}
-	
+
 	public String getBewertungsString() {
 		if (null != anzahlVotes && null != gesamtSterne) {
 			String output = "(Durchschnitt %,.2f aus %d Stimmen)";
-			return String.format(output,super.getDurchschnittlichesRating(),anzahlVotes);
+			return String.format(output, super.getDurchschnittlichesRating(),
+					anzahlVotes);
 		}
-		
+
 		return "";
 	}
-	
+
 	public String getDetails() {
 		return details;
 	}
-	
+
 	@Override
 	public String toString() {
-		return getTitel() + ":" + getDateString()+"\n"
-				+" Anzahl Votes: "+anzahlVotes+"\n"
-				+" Gesamt Sterne: "+gesamtSterne+"\n"
-				+" Details: "+details+"\n"
-				+" Kommentar: "+kommentar+"\n";
+		return getTitel() + ":" + getDateString() + "\n" + " Anzahl Votes: "
+				+ anzahlVotes + "\n" + " Gesamt Sterne: " + gesamtSterne + "\n"
+				+ " Details: " + details + "\n" + " Kommentar: " + kommentar
+				+ "\n";
 	}
 }

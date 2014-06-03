@@ -10,17 +10,19 @@ import org.json.JSONObject;
 import android.annotation.SuppressLint;
 import android.util.Log;
 
-@SuppressLint("SimpleDateFormat") public class Vorlesungstermin {
+@SuppressLint("SimpleDateFormat")
+public class Vorlesungstermin {
 
 	protected static final String DATEFORMAT = "yyyy-MM-dd'T'HH:mm:ss";
 	protected static final String OUTPUTFORMAT = "dd.MM.yyy' 'HH:mm";
 	public static final String VORLESUNGSTERMINID = "vorlesungsterminID";
-	
+
 	@SuppressLint("SimpleDateFormat")
-	protected static final SimpleDateFormat SDF = new SimpleDateFormat(DATEFORMAT);
+	protected static final SimpleDateFormat SDF = new SimpleDateFormat(
+			DATEFORMAT);
 	@SuppressLint("SimpleDateFormat")
-	protected static final SimpleDateFormat OUT = new SimpleDateFormat(OUTPUTFORMAT);
-	
+	protected static final SimpleDateFormat OUT = new SimpleDateFormat(
+			OUTPUTFORMAT);
 
 	private Long vorlesungsterminID = null;
 	private String titel = null;
@@ -28,6 +30,12 @@ import android.util.Log;
 	private Date bis = null;
 	private Double durchschnittlichesRating = null;
 
+	/**
+	 * Erzeugt einen Vorlesungstermin aus einem JSON Objekt
+	 * 
+	 * @param json
+	 * @throws JSONException
+	 */
 	public Vorlesungstermin(JSONObject json) throws JSONException {
 		super();
 		if (null != json) {
@@ -35,7 +43,7 @@ import android.util.Log;
 			this.titel = json.getString("Titel");
 			this.durchschnittlichesRating = json
 					.getDouble("DurchschnittlichesRating");
-			synchronized(this){
+			synchronized (this) {
 				try {
 					von = SDF.parse(json.getString("Von"));
 					bis = SDF.parse(json.getString("Bis"));
@@ -66,16 +74,14 @@ import android.util.Log;
 	public Double getDurchschnittlichesRating() {
 		return durchschnittlichesRating;
 	}
-	
+
 	public String getDateString() {
-		return OUT.format(von) + " - "
-				+ OUT.format(bis);
+		return OUT.format(von) + " - " + OUT.format(bis);
 	}
-	
+
 	@Override
 	public String toString() {
-		return titel + ":\n" + OUT.format(von) + " - "
-				+ OUT.format(bis);
+		return titel + ":\n" + OUT.format(von) + " - " + OUT.format(bis);
 	}
 
 }

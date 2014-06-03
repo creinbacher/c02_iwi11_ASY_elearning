@@ -10,18 +10,17 @@ import android.net.NetworkInfo;
 import android.os.Handler;
 import android.widget.ImageView;
 
-
-
 public abstract class BaseActivity extends Activity {
 
 	protected static final String BASE_URL = "http://asy-gruppe3.azurewebsites.net/Campus02";
+	public static final String READ_URL = BASE_URL + "/asy";
 	protected boolean connected = false;
 	protected ProgressDialog progress = null;
 	protected boolean exceptionOccured = false;
 	protected boolean noResponse = false;
 	protected Handler handler = new Handler();
 	private ImageView statusImage = null;
-	
+
 	protected boolean checkConnectedChanged() {
 		ConnectivityManager conMgr = (ConnectivityManager) getSystemService(Activity.CONNECTIVITY_SERVICE);
 		NetworkInfo networkInfo = conMgr.getActiveNetworkInfo();
@@ -36,7 +35,7 @@ public abstract class BaseActivity extends Activity {
 			return true;
 		}
 	}
-	
+
 	protected ProgressDialog getProgressDialog(boolean laden) {
 		if (null == progress) {
 			progress = new ProgressDialog(this);
@@ -50,7 +49,7 @@ public abstract class BaseActivity extends Activity {
 		}
 		return progress;
 	}
-	
+
 	protected Runnable updateState = new Runnable() {
 		@Override
 		public void run() {
@@ -61,19 +60,21 @@ public abstract class BaseActivity extends Activity {
 			handler.postDelayed(this, 1000);
 		}
 	};
-	
+
 	protected void showAlertDialog(Context context) {
-		showMessageDialog(context, R.string.offlineTitle, R.string.offlineMessage);
+		showMessageDialog(context, R.string.offlineTitle,
+				R.string.offlineMessage);
 	}
-	
+
 	protected void showOfflineDialog(Context context) {
-		showMessageDialog(context, R.string.offlineTitle, R.string.offlineMessageFunctionNotPossible);
+		showMessageDialog(context, R.string.offlineTitle,
+				R.string.offlineMessageFunctionNotPossible);
 	}
-	
+
 	protected void showActionAbout() {
 		showMessageDialog(this, R.string.aboutTitle, R.string.aboutMessage);
 	}
-	
+
 	protected void showMessageDialog(Context context, int title, int message) {
 		AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(this);
 		alertDialogBuilder.setTitle(title);
@@ -88,24 +89,18 @@ public abstract class BaseActivity extends Activity {
 		AlertDialog dialog = alertDialogBuilder.create();
 		dialog.show();
 	}
-	
+
 	protected void changeStatusIcon(boolean setOnline) {
 		if (null == statusImage) {
 			statusImage = (ImageView) findViewById(R.id.imageStatus);
 		}
-	
+
 		if (setOnline) {
 			// online setzen
 			statusImage.setImageResource(android.R.drawable.presence_online);
-			
-			// TODO: char sequence?ß
-			//statusImage.setContentDescription(R.string.status_online);
 		} else {
 			// offline setzen
 			statusImage.setImageResource(android.R.drawable.presence_offline);
-			
-			// TODO: char sequence?ß
-			//statusImage.setContentDescription((string) R.string.status_offline);
 		}
 	}
 }

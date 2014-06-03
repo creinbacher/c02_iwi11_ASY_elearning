@@ -60,8 +60,7 @@ public class DetailActivity extends BaseActivity {
 		if (!connected) {
 			showNotConnectedAlert();
 		} else {
-			new CallDetailService().execute(VorlesungslisteActivity.READ_URL
-					+ "/" + vorlesungsID);
+			new CallDetailService().execute(READ_URL + "/" + vorlesungsID);
 		}
 	}
 
@@ -113,16 +112,15 @@ public class DetailActivity extends BaseActivity {
 						// return > set to 0 causes recall of this function
 						return;
 					}
-					
+
 					showOfflineDialog(context);
 					return;
 				}
 
 				new CallRatingService().execute(BASE_URL_RATING
 						+ getTerminDetails().getVorlesungsterminID()
-						+ "?anzahlSterne=" + ((int) rating),
-						VorlesungslisteActivity.READ_URL + "/"
-								+ getTerminDetails().getVorlesungsterminID());
+						+ "?anzahlSterne=" + ((int) rating), READ_URL + "/"
+						+ getTerminDetails().getVorlesungsterminID());
 			}
 		});
 

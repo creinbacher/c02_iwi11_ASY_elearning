@@ -6,9 +6,7 @@ import java.util.HashMap;
 import org.json.JSONArray;
 import org.json.JSONObject;
 
-import android.app.AlertDialog;
 import android.content.Context;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
@@ -27,14 +25,10 @@ import at.campus02.asy.service.CallRestService;
 
 public class VorlesungslisteActivity extends BaseActivity {
 
-	public static final String READ_URL = BASE_URL + "/asy";
-
 	// speichert die ueber REST geladenen Termine
 	private ArrayList<Vorlesungstermin> termine = null;
-
 	private ListView vorlesungsListView = null;
 	private Context context = this;
-
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -48,7 +42,7 @@ public class VorlesungslisteActivity extends BaseActivity {
 					public void onItemClick(AdapterView<?> parent, View view,
 							int position, long id) {
 
-						if(!connected){
+						if (!connected) {
 							showOfflineDialog(context);
 							return;
 						}
@@ -68,7 +62,8 @@ public class VorlesungslisteActivity extends BaseActivity {
 					}
 
 				});
-		//gleich nach dem Starten prï¿½fen ob wir eine Verbindung haben, damit wir das Icon korrekt setzen
+		// gleich nach dem Starten prüfen ob wir eine Verbindung haben, damit
+		// wir das Icon korrekt setzen
 		checkConnectedChanged();
 		changeStatusIcon(connected);
 		handler.removeCallbacks(updateState);
@@ -76,10 +71,10 @@ public class VorlesungslisteActivity extends BaseActivity {
 		executeRead();
 	}
 
-	private void showNotConnectedAlert(){
+	private void showNotConnectedAlert() {
 		showAlertDialog(this);
 	}
-	
+
 	private void executeRead() {
 		checkConnectedChanged();
 		if (!connected) {
@@ -174,7 +169,6 @@ public class VorlesungslisteActivity extends BaseActivity {
 		}
 		return vorlesungsListView;
 	}
-	
 
 	/**
 	 * 
@@ -231,7 +225,5 @@ public class VorlesungslisteActivity extends BaseActivity {
 			getProgressDialog(true).show();
 		}
 	}
-
-
 
 }
